@@ -1,139 +1,89 @@
-def dance_test():
-    """
-    Тест для определения подходящего стиля танца
-    """
-    print("=" * 50)
-    print("ТЕСТ: Какой стиль танца тебе подходит?")
-    print("=" * 50)
+import json
+import datetime
+import os
 
+# Файл для результатов
+RESULTS_FILE = "results.json"
+
+
+def main():
+    """
+    Главная функция
+    """
+    print("=" * 40)
+    print("ТЕСТ: Твой стиль танца")
+    print("=" * 40)
+
+    # Запускаем тест
+    result = run_test()
+
+    # Показываем результат
+    show_result(result)
+
+    # Сохраняем результат (статистика скрыта от пользователя)
+    save_result(result)
+
+
+def run_test():
+    """
+    Запускает тест
+    """
     # Вопрос 1: Возраст
     print("\n1. Сколько тебе лет?")
-    print("А) 4-5 лет")
-    print("Б) 7-9 лет")
-    print("В) 10-13 лет")
-    print("Г) 14-15 лет")
-    print("Д) 16-17 лет")
-    print("Е) 18+ лет")
+    print("А) 4-5")
+    print("Б) 7-9")
+    print("В) 10-13")
+    print("Г) 14-15")
+    print("Д) 16-17")
+    print("Е) 18+")
 
-    age_ans = input("Выбери вариант (А/Б/В/Г/Д/Е): ").upper().strip()
+    age = input("Твой выбор: ").upper()
 
-    # Обработка ответа на вопрос 1
-    if age_ans == "А":
-        return show_res("Baby 4-5", "Тебе идеально подходит группа Baby 4-5!\nТренер: Соня Баловнева")
+    # Для детей сразу возвращаем результат
+    if age == "А":
+        return {"style": "Baby 4-5", "age": "4-5", "teacher": "Соня Баловнева"}
+    elif age == "Б":
+        return {"style": "Kids 7-9", "age": "7-9", "teacher": "Даша Шорникова"}
 
-    elif age_ans == "Б":
-        return show_res("Kids 7-9", "Твой стиль — Kids! Танцы для детей 7-9 лет.\nТренер: Даша Шорникова")
+    # Для остальных задаем вопросы
+    answers = []
 
-    elif age_ans == "В":
-        # Для возраста 10-13 лет
-        style = full_test()
-        final = check_age(style, 12)
-        return show_res(final, get_desc(final))
+    # Вопросы 2-5
+    questions = [
+        "\n2. Какая музыка?\nА) Поп\nБ) R&B\nВ) Хип-хоп\nГ) Женственная\nД) Энергичная\nЕ) Электроника",
+        "\n3. Какой образ?\nА) Современный\nБ) Элегантный\nВ) Уличный\nГ) Милый\nД) Женственный\nЕ) Яркий",
+        "\n4. Что важно?\nА) Модно\nБ) Грация\nВ) Энергия\nГ) Легкость\nД) Пластика\nЕ) Эмоции",
+        "\n5. Уровень?\nА) Начинающий\nБ) Хочу пластику\nВ) Уличные стили\nГ) Легкий стиль\nД) Женственность\nЕ) Готов к нагрузкам"
+    ]
 
-    elif age_ans == "Г":
-        # Для возраста 14-15 лет
-        style = full_test()
-        final = check_age_14_15(style)
-        return show_res(final, get_desc(final))
+    for q in questions:
+        print(q)
+        while True:
+            ans = input("Твой выбор: ").upper()
+            if ans in ["А", "Б", "В", "Г", "Д", "Е"]:
+                answers.append(ans)
+                break
+            else:
+                print("Выбери А-Е")
 
-    elif age_ans == "Д":
-        # Для возраста 16-17 лет - доступны все взрослые стили
-        style = full_test()
-        final = check_age_16plus(style, 16)
-        return show_res(final, get_desc(final))
+    # Определяем стиль
+    style = find_style(answers)
 
-    elif age_ans == "Е":
-        # Для возраста 18+ лет - доступны все взрослые стили
-        style = full_test()
-        final = check_age_16plus(style, 18)
-        return show_res(final, get_desc(final))
+    # Проверяем возраст
+    final = check_age(style, age)
 
-    else:
-        print("Пожалуйста, выбери один из предложенных вариантов (А/Б/В/Г/Д/Е)")
-        return dance_test()
+    return {
+        "style": final["style"],
+        "age": get_age_text(age),
+        "teacher": final["teacher"]
+    }
 
 
-def full_test():
+def find_style(answers):
     """
-    Проводит вопросы 2-5 для определения стиля танца
+    Находит стиль по ответам
     """
-    ans = []
-
-    # Вопрос 2: Музыка
-    print("\n2. Какую музыку ты предпочитаешь?")
-    print("А) Современные хиты и поп-музыка")
-    print("Б) Sensual R&B и медленные композиции")
-    print("В) Хип-хоп и биты")
-    print("Г) Популярные треки с женственным настроением")
-    print("Д) Энергичные поп-композиции")
-    print("Е) Электронную музыку с драйвом")
-
-    while True:
-        q = input("Выбери вариант (А/Б/В/Г/Д/Е): ").upper().strip()
-        if q in ["А", "Б", "В", "Г", "Д", "Е"]:
-            ans.append(q)
-            break
-        else:
-            print("Пожалуйста, выбери один из предложенных вариантов")
-
-    # Вопрос 3: Образ
-    print("\n3. Какой образ тебе ближе?")
-    print("А) Универсальный и современный")
-    print("Б) Элегантный и сексуальный")
-    print("В) Уличный и свободный")
-    print("Г) Милый и кокетливый")
-    print("Д) Женственный и грациозный")
-    print("Е) Яркий и экспрессивный")
-
-    while True:
-        q = input("Выбери вариант (А/Б/В/Г/Д/Е): ").upper().strip()
-        if q in ["А", "Б", "В", "Г", "Д", "Е"]:
-            ans.append(q)
-            break
-        else:
-            print("Пожалуйста, выбери один из предложенных вариантов")
-
-    # Вопрос 4: Что важно в танце
-    print("\n4. Что для тебя важно в танце?")
-    print("А) Универсальность и модные движения")
-    print("Б) Грация и работа с образами")
-    print("В) Энергия и самовыражение")
-    print("Г) Легкость и женственность")
-    print("Д) Пластичность и изящество")
-    print("Е) Эмоциональность и техника")
-
-    while True:
-        q = input("Выбери вариант (А/Б/В/Г/Д/Е): ").upper().strip()
-        if q in ["А", "Б", "В", "Г", "Д", "Е"]:
-            ans.append(q)
-            break
-        else:
-            print("Пожалуйста, выбери один из предложенных вариантов")
-
-    # Вопрос 5: Уровень подготовки
-    print("\n5. Какой у тебя уровень подготовки?")
-    print("А) Начинающий, но хочу попробовать всё")
-    print("Б) Хочу научиться женственной пластике")
-    print("В) Нравится уличная культура")
-    print("Г) Ищу легкий и приятный стиль")
-    print("Д) Хочу развивать женственность в движении")
-    print("Е) Готов(а) к энергичным тренировкам")
-
-    while True:
-        q = input("Выбери вариант (А/Б/В/Г/Д/Е): ").upper().strip()
-        if q in ["А", "Б", "В", "Г", "Д", "Е"]:
-            ans.append(q)
-            break
-        else:
-            print("Пожалуйста, выбери один из предложенных вариантов")
-
-    return find_style(ans)
-
-
-def find_style(ans):
-    """
-    Определяет стиль танца на основе ответов
-    """
+    # Баллы стилей
     scores = {
         "Choreo": 0,
         "High Heels": 0,
@@ -143,8 +93,8 @@ def find_style(ans):
         "Jazz Funk": 0
     }
 
-    # Сопоставление ответов со стилями
-    mapping = {
+    # Ответ -> стиль
+    style_map = {
         "А": "Choreo",
         "Б": "High Heels",
         "В": "Hip-hop",
@@ -153,23 +103,36 @@ def find_style(ans):
         "Е": "Jazz Funk"
     }
 
-    # Подсчитываем баллы для каждого стиля
-    for a in ans:
-        if a in mapping:
-            scores[mapping[a]] += 1
+    # Считаем баллы
+    for ans in answers:
+        if ans in style_map:
+            scores[style_map[ans]] += 1
 
-    # Находим стиль с максимальным количеством баллов
-    max_s = max(scores.values())
-    best = [s for s, sc in scores.items() if sc == max_s]
-
-    return best[0]
+    # Лучший стиль
+    return max(scores, key=scores.get)
 
 
-def check_age(style, age):
+def get_age_text(age_choice):
     """
-    Проверяет возрастные ограничения для возрастов 10-13 лет
+    Возраст текстом
     """
-    limits = {
+    ages = {
+        "А": "4-5 лет",
+        "Б": "7-9 лет",
+        "В": "10-13 лет",
+        "Г": "14-15 лет",
+        "Д": "16-17 лет",
+        "Е": "18+ лет"
+    }
+    return ages.get(age_choice, "Не указано")
+
+
+def check_age(style, age_choice):
+    """
+    Проверяет возрастные ограничения
+    """
+    # Минимальный возраст
+    min_age = {
         "Choreo": 14,
         "Hip-hop": 14,
         "Girly hip-hop": 14,
@@ -178,146 +141,101 @@ def check_age(style, age):
         "Girly Choreo": 16
     }
 
-    if style in limits and age >= limits[style]:
-        return style
-    elif style in limits and age < limits[style]:
-        req_age = limits[style]
+    # Возраст числом
+    age_num = {"А": 4, "Б": 7, "В": 10, "Г": 14, "Д": 16, "Е": 18}
+    age = age_num.get(age_choice, 0)
 
-        # Для возраста 10-13 лет предлагаем Teens как альтернативу
-        alt = "Teens 10-13"
-
-        print(f"\n  Стиль {style} доступен с {req_age}+ лет")
-        print(f"Для твоего возраста идеально подойдет: {alt}")
-
-        return alt
-
-    return style
-
-
-def check_age_14_15(style):
-    """
-    Проверяет возрастные ограничения для возрастов 14-15 лет
-    """
-    limits = {
-        "Choreo": 14,
-        "Hip-hop": 14,
-        "Girly hip-hop": 14,
-        "Jazz Funk": 12,
-        "High Heels": 16,
-        "Girly Choreo": 16
+    # Тренеры
+    teachers = {
+        "Baby 4-5": "Соня Баловнева",
+        "Kids 7-9": "Даша Шорникова",
+        "Teens 10-13": "Настя Кюннап, Соня Баловнева",
+        "Choreo": "Даша Шорникова",
+        "High Heels": "Катя Бударина, Настя Семенова, Ангелина Сумина, Ксения Лунева",
+        "Hip-hop": "Катя Четина",
+        "Girly hip-hop": "Катя Четина",
+        "Girly Choreo": "Катя Бударина, Ксения Лунева",
+        "Jazz Funk": "Даша Мигрова"
     }
 
-    if style in limits:
-        if limits[style] <= 14:  # Стили доступные с 14 лет и младше
-            return style
+    # Если возраст подходит
+    if style in min_age and age >= min_age[style]:
+        return {"style": style, "teacher": teachers.get(style, "Тренер")}
+
+    # Если не подходит - альтернатива
+    if age_choice == "В":  # 10-13
+        if style == "Jazz Funk" and age >= 12:
+            return {"style": "Jazz Funk", "teacher": teachers["Jazz Funk"]}
         else:
-            # Для High Heels и Girly Choreo (16+) предлагаем альтернативу
-            req_age = limits[style]
-            alt = "Choreo"  # Предлагаем Choreo как универсальный вариант
+            return {"style": "Teens 10-13", "teacher": teachers["Teens 10-13"]}
 
-            print(f"\n  Стиль {style} доступен с {req_age}+ лет")
-            print(f"Для твоего возраста идеально подойдет: {alt}")
-
-            return alt
-
-    return style
-
-
-def check_age_16plus(style, age):
-    """
-    Проверяет возрастные ограничения для возрастов 16+ лет
-    Teens, Baby, Kids НЕ предлагаются!
-    """
-    limits = {
-        "Choreo": 14,
-        "Hip-hop": 14,
-        "Girly hip-hop": 14,
-        "Jazz Funk": 12,
-        "High Heels": 16,
-        "Girly Choreo": 16
-    }
-
-    if style in limits:
-        if age >= limits[style]:
-            return style
+    elif age_choice == "Г":  # 14-15
+        if style in ["High Heels", "Girly Choreo"]:
+            print(f"\nСтиль {style} с 16+ лет")
+            print("Для тебя: Choreo")
+            return {"style": "Choreo", "teacher": teachers["Choreo"]}
         else:
-            # Если стиль недоступен, предлагаем альтернативу из взрослых стилей
-            req_age = limits[style]
+            return {"style": style, "teacher": teachers.get(style, "Тренер")}
 
-            # Доступные взрослые стили для альтернативы
-            adult_styles = ["Choreo", "Hip-hop", "Girly hip-hop", "Jazz Funk"]
-            if age >= 16:
-                adult_styles.extend(["High Heels", "Girly Choreo"])
-
-            # Выбираем первый доступный взрослый стиль как альтернативу
-            alt = adult_styles[0]
-
-            print(f"\n Стиль {style} доступен с {req_age}+ лет")
-            print(f"Для твоего возраста идеально подойдет: {alt}")
-
-            return alt
-
-    return style
+    else:  # 16+
+        return {"style": style, "teacher": teachers.get(style, "Тренер")}
 
 
-def get_desc(style):
+def show_result(data):
     """
-    Возвращает описание результата для каждого стиля
+    Показывает результат
     """
-    desc = {
-        "Baby 4-5": "Тебе идеально подходит группа Baby 4-5!\nТренер: Соня Баловнева",
-        "Kids 7-9": "Твой стиль — Kids! Танцы для детей 7-9 лет.\nТренер: Даша Шорникова",
-        "Teens 10-13": "Твой стиль — Teens! Современные танцы для подростков 10-13 лет.\nТренеры: Настя Кюннап, Соня Баловнева",
-        "Choreo": "Твой стиль — Choreo! Универсальное направление под современную музыку.\nТренер: Даша Шорникova",
-        "High Heels": "Твой стиль — High Heels! Элегантный и чувственный танец на каблуках.\nТренеры: Катя Бударина, Настя Семенова, Ангелина Сумина, Ксения Лунева",
-        "Hip-hop": "Твой стиль — Hip-hop! Энергичный уличный танец.\nТренер: Катя Четина",
-        "Girly hip-hop": "Твой стиль — Girly Hip-hop! Легкий и женственный хип-хоп.\nТренер: Катя Четина",
-        "Girly Choreo": "Твой стиль — Girly Choreo! Женственная и грациозная хореография.\nТренеры: Катя Бударина, Ксения Лунева",
-        "Jazz Funk": "Твой стиль — Jazz Funk! Энергичный и эмоциональный танец.\nТренер: Даша Мигрова"
+    style = data["style"]
+    teacher = data["teacher"]
+
+    # Описания
+    info = {
+        "Baby 4-5": "Идеально для малышей!",
+        "Kids 7-9": "Танцы для детей!",
+        "Teens 10-13": "Для подростков!",
+        "Choreo": "Универсальный стиль!",
+        "High Heels": "Чувственные танцы!",
+        "Hip-hop": "Энергия улиц!",
+        "Girly hip-hop": "Легкий хип-хоп!",
+        "Girly Choreo": "Женственная хореография!",
+        "Jazz Funk": "Эмоциональный танец!"
     }
 
-    return desc.get(style, "Стиль не определен")
+    print("\n" + "=" * 40)
+    print("ТВОЙ РЕЗУЛЬТАТ")
+    print("=" * 40)
+    print(f"Стиль: {style}")
+    print(f"Описание: {info.get(style, 'Твой стиль!')}")
+    print(f"Тренер: {teacher}")
+    print("=" * 40)
 
 
-def show_res(style, desc):
+def save_result(data):
     """
-    Показывает финальный результат теста
+    Сохраняет результат (статистика скрыта)
     """
-    print("\n" + "=" * 50)
-    print("РЕЗУЛЬТАТ ТЕСТА")
-    print("=" * 50)
-    print(f"{desc}")
-    print("=" * 50)
+    data["date"] = datetime.datetime.now().isoformat()
 
-    return style
-
-
-def main():
-    """
-    Основная функция для запуска теста
-    """
     try:
-        print("Добро пожаловать в тест по определению стиля танца!")
-        print("Отвечай на вопросы, выбирая буквы А, Б, В и т.д.")
-
-        res = dance_test()
-
-        print("\nПоздравляем с прохождением теста!")
-        print("Желаем успехов в танцах!")
-
-        again = input("\nХочешь пройти тест еще раз? (да/нет): ").lower().strip()
-        if again in ['да', 'д', 'yes', 'y']:
-            print("\n" + "=" * 50)
-            main()
+        # Читаем старые
+        if os.path.exists(RESULTS_FILE):
+            with open(RESULTS_FILE, 'r', encoding='utf-8') as f:
+                all_data = json.load(f)
         else:
-            print("Спасибо за участие! До встречи на танцполе!")
+            all_data = []
 
-    except KeyboardInterrupt:
-        print("\n\nТест прерван. Возвращайся, когда захочешь узнать свой стиль!")
-    except Exception as e:
-        print(f"Произошла ошибка: {e}")
+        # Добавляем новые
+        all_data.append(data)
+
+        # Сохраняем
+        with open(RESULTS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(all_data, f, ensure_ascii=False, indent=2)
+
+    except:
+        # Ошибка скрыта от пользователя
+        pass
 
 
-# Запуск теста
+# Запуск
 if __name__ == "__main__":
     main()
