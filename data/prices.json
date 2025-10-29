@@ -1,0 +1,69 @@
+{
+  "trial": {
+    "name": "ПРОБНОЕ ЗАНЯТИЕ",
+    "price": "200 руб",
+    "conditions": "Для открытых групп - 200 руб *при покупке абонемента в день пробного занятия - бесплатно"
+  },
+  "kids": {
+    "baby_sonya": {
+      "name": "BABY by Sonya",
+      "price": "2500 руб"
+    },
+    "kids_dasha": {
+      "name": "KIDS by Dasha",
+      "price": "2600 руб"
+    }
+  },
+  "groups": {
+    "teens": {
+      "name": "TEENS by Nastya / by Sonya",
+      "price": "2500 руб"
+    },
+    "jazz_funk": {
+      "name": "JAZZ FUNK by Dasha",
+      "price": "2500 руб"
+    },
+    "high_heels": {
+      "name": "HIGH HEELS by Angelina / by Ksu / by Nastya",
+      "price": "3000 руб"
+    },
+    "heelusion": {
+      "name": "HEELUSION",
+      "price": "3000 руб"
+    },
+    "hip_hop": {
+      "name": "HIP-HOP / GIRLY HIP-HOP by Chetka",
+      "price": "3000 руб"
+    },
+    "hdk": {
+      "name": "HDK",
+      "price": "3000 руб"
+    },
+    "choreo": {
+      "name": "CHOREO by Dasha Shor",
+      "price": "3200 руб"
+    },
+    "paradox": {
+      "name": "PARADOX",
+      "price": "3200 руб"
+    },
+    "high_heels_casey": {
+      "name": "HIGH HEELS / GIRLY CHOREO by Casey",
+      "price": "4000 руб"
+    },
+    "foryou": {
+      "name": "4YOU",
+      "price": "4000 руб"
+    }
+  },
+  "other": {
+    "single": {
+      "name": "Разовое занятие / аренда",
+      "price": "600 руб"
+    },
+    "student": {
+      "name": "Скидка студентам",
+      "price": "500 руб"
+    }
+  }
+}
