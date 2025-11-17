@@ -7,5 +7,985 @@
     "age": "19",
     "registration_date": "2025-10-28T04:03:57.565922",
     "status": "active"
+  },
+  {
+    "id": "user_20251028040325",
+    "name": "Мария",
+    "email": "maria.ivanova@gmail.com",
+    "phone": "89113815789",
+    "age": "17",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T04:04:12.123456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040326",
+    "name": "София",
+    "email": "sofia.petrova@gmail.com",
+    "phone": "89113815790",
+    "age": "5",
+    "style": "Baby",
+    "registration_date": "2025-10-28T04:05:22.654321",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040327",
+    "name": "Александр",
+    "email": "alex.smirnov@gmail.com",
+    "phone": "89113815791",
+    "age": "14",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T04:06:33.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040328",
+    "name": "Анна",
+    "email": "anna.kuznetsova@gmail.com",
+    "phone": "89113815792",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:07:44.456789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040329",
+    "name": "Дарья",
+    "email": "dasha.popova@gmail.com",
+    "phone": "89113815793",
+    "age": "16",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:08:55.321654",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040330",
+    "name": "Екатерина",
+    "email": "katya.volkova@gmail.com",
+    "phone": "89113815794",
+    "age": "15",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:09:16.987654",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040331",
+    "name": "Полина",
+    "email": "polina.fedorova@gmail.com",
+    "phone": "89113815795",
+    "age": "18",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T04:10:27.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040332",
+    "name": "Виктория",
+    "email": "vika.morozova@gmail.com",
+    "phone": "89113815796",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:11:38.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040333",
+    "name": "Артем",
+    "email": "artem.egorov@gmail.com",
+    "phone": "89113815797",
+    "age": "4",
+    "style": "Baby",
+    "registration_date": "2025-10-28T04:12:49.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040334",
+    "name": "Ирина",
+    "email": "ira.lebedeva@gmail.com",
+    "phone": "89113815798",
+    "age": "20",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:13:50.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040335",
+    "name": "Ольга",
+    "email": "olga.sokolova@gmail.com",
+    "phone": "89113815799",
+    "age": "22",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T04:14:01.753456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040336",
+    "name": "Ксения",
+    "email": "ksu.nikitina@gmail.com",
+    "phone": "89113815800",
+    "age": "14",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:15:12.456123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040337",
+    "name": "Милана",
+    "email": "milana.orlova@gmail.com",
+    "phone": "89113815801",
+    "age": "11",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:16:23.789456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040338",
+    "name": "Алиса",
+    "email": "alisa.zakharova@gmail.com",
+    "phone": "89113815802",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:17:34.123789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040339",
+    "name": "Елена",
+    "email": "lena.vorobeva@gmail.com",
+    "phone": "89113815803",
+    "age": "19",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T04:18:45.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040340",
+    "name": "Валерия",
+    "email": "lera.titova@gmail.com",
+    "phone": "89113815804",
+    "age": "16",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T04:19:56.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040341",
+    "name": "Маргарита",
+    "email": "rita.belova@gmail.com",
+    "phone": "89113815805",
+    "age": "21",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:20:07.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040342",
+    "name": "Юлия",
+    "email": "yulya.guseva@gmail.com",
+    "phone": "89113815806",
+    "age": "15",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:21:18.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040343",
+    "name": "Арина",
+    "email": "arina.komarova@gmail.com",
+    "phone": "89113815807",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:22:29.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040344",
+    "name": "Диана",
+    "email": "diana.efremova@gmail.com",
+    "phone": "89113815808",
+    "age": "18",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T04:23:40.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040345",
+    "name": "Кира",
+    "email": "kira.medvedeva@gmail.com",
+    "phone": "89113815809",
+    "age": "10",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:24:51.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040346",
+    "name": "Вероника",
+    "email": "nika.ryabova@gmail.com",
+    "phone": "89113815810",
+    "age": "5",
+    "style": "Baby",
+    "registration_date": "2025-10-28T04:25:02.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040347",
+    "name": "Алексей",
+    "email": "lexa.kirillov@gmail.com",
+    "phone": "89113815811",
+    "age": "23",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T04:26:13.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040348",
+    "name": "Светлана",
+    "email": "sveta.golubeva@gmail.com",
+    "phone": "89113815812",
+    "age": "24",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:27:24.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040349",
+    "name": "Татьяна",
+    "email": "tanya.pavlova@gmail.com",
+    "phone": "89113815813",
+    "age": "19",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T04:28:35.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040350",
+    "name": "Надежда",
+    "email": "nadia.soloveva@gmail.com",
+    "phone": "89113815814",
+    "age": "14",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:29:46.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040351",
+    "name": "Евгения",
+    "email": "zhenya.vinogradova@gmail.com",
+    "phone": "89113815815",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:30:57.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040352",
+    "name": "Марина",
+    "email": "marina.shirova@gmail.com",
+    "phone": "89113815816",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:31:08.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040353",
+    "name": "Ангелина",
+    "email": "gela.davidova@gmail.com",
+    "phone": "89113815817",
+    "age": "20",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T04:32:19.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040354",
+    "name": "Элина",
+    "email": "elina.melnikova@gmail.com",
+    "phone": "89113815818",
+    "age": "16",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:33:20.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040355",
+    "name": "Карина",
+    "email": "karina.romanova@gmail.com",
+    "phone": "89113815819",
+    "age": "15",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:34:31.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040356",
+    "name": "Алёна",
+    "email": "alyona.fomina@gmail.com",
+    "phone": "89113815820",
+    "age": "18",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T04:35:42.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040357",
+    "name": "Лилия",
+    "email": "lily.grishina@gmail.com",
+    "phone": "89113815821",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:36:53.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040358",
+    "name": "Яна",
+    "email": "yana.tarasova@gmail.com",
+    "phone": "89113815822",
+    "age": "14",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T04:37:04.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040359",
+    "name": "Василиса",
+    "email": "vasilisa.bobrova@gmail.com",
+    "phone": "89113815823",
+    "age": "11",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:38:15.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040360",
+    "name": "Ульяна",
+    "email": "ulyana.sergeeva@gmail.com",
+    "phone": "89113815824",
+    "age": "4",
+    "style": "Baby",
+    "registration_date": "2025-10-28T04:39:26.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040361",
+    "name": "Любовь",
+    "email": "lyuba.kuzmina@gmail.com",
+    "phone": "89113815825",
+    "age": "22",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:40:37.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040362",
+    "name": "Галина",
+    "email": "galya.avdeeva@gmail.com",
+    "phone": "89113815826",
+    "age": "19",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T04:41:48.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040363",
+    "name": "Инна",
+    "email": "inna.gorshkova@gmail.com",
+    "phone": "89113815827",
+    "age": "16",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:42:59.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040364",
+    "name": "Лариса",
+    "email": "lara.biryukova@gmail.com",
+    "phone": "89113815828",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:44:10.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040365",
+    "name": "Регина",
+    "email": "regina.simonova@gmail.com",
+    "phone": "89113815829",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:45:21.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040366",
+    "name": "Мирослава",
+    "email": "mira.efimova@gmail.com",
+    "phone": "89113815830",
+    "age": "20",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T04:46:32.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040367",
+    "name": "Стефания",
+    "email": "stefania.danilova@gmail.com",
+    "phone": "89113815831",
+    "age": "15",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T04:47:43.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040368",
+    "name": "Злата",
+    "email": "zlata.ostrova@gmail.com",
+    "phone": "89113815832",
+    "age": "18",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:48:54.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040369",
+    "name": "Эвелина",
+    "email": "eva.makarova@gmail.com",
+    "phone": "89113815833",
+    "age": "14",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:49:05.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040370",
+    "name": "Варвара",
+    "email": "vara.kozlova@gmail.com",
+    "phone": "89113815834",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:50:16.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040371",
+    "name": "Амелия",
+    "email": "amelia.eremina@gmail.com",
+    "phone": "89113815835",
+    "age": "21",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T04:51:27.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040372",
+    "name": "Майя",
+    "email": "maya.sorokina@gmail.com",
+    "phone": "89113815836",
+    "age": "10",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:52:38.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040373",
+    "name": "Алина",
+    "email": "alina.trofimova@gmail.com",
+    "phone": "89113815837",
+    "age": "5",
+    "style": "Baby",
+    "registration_date": "2025-10-28T04:53:49.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040374",
+    "name": "Руслана",
+    "email": "ruslana.mironova@gmail.com",
+    "phone": "89113815838",
+    "age": "23",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T04:54:50.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040375",
+    "name": "Каролина",
+    "email": "karolina.gromova@gmail.com",
+    "phone": "89113815839",
+    "age": "24",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T04:55:01.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040376",
+    "name": "Жанна",
+    "email": "zhanna.polyakova@gmail.com",
+    "phone": "89113815840",
+    "age": "19",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T04:56:12.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040377",
+    "name": "Клавдия",
+    "email": "klava.ignatova@gmail.com",
+    "phone": "89113815841",
+    "age": "14",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T04:57:23.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040378",
+    "name": "Лидия",
+    "email": "lida.filatova@gmail.com",
+    "phone": "89113815842",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T04:58:34.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040379",
+    "name": "Нонна",
+    "email": "nonna.ryzhkova@gmail.com",
+    "phone": "89113815843",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T04:59:45.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040380",
+    "name": "Раиса",
+    "email": "raisa.suvorova@gmail.com",
+    "phone": "89113815844",
+    "age": "20",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T05:00:56.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040381",
+    "name": "Тамара",
+    "email": "tamara.bolshakova@gmail.com",
+    "phone": "89113815845",
+    "age": "16",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:01:07.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040382",
+    "name": "Фаина",
+    "email": "faina.knyazeva@gmail.com",
+    "phone": "89113815846",
+    "age": "15",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T05:02:18.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040383",
+    "name": "Эльвира",
+    "email": "elvira.timofeeva@gmail.com",
+    "phone": "89113815847",
+    "age": "18",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T05:03:29.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040384",
+    "name": "Юлиана",
+    "email": "yuliana.krylova@gmail.com",
+    "phone": "89113815848",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T05:04:40.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040385",
+    "name": "Ярослава",
+    "email": "yara.belyakova@gmail.com",
+    "phone": "89113815849",
+    "age": "14",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T05:05:51.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040386",
+    "name": "Богдана",
+    "email": "bogdana.maslova@gmail.com",
+    "phone": "89113815850",
+    "age": "11",
+    "style": "Teens",
+    "registration_date": "2025-10-28T05:06:02.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040387",
+    "name": "Виталина",
+    "email": "vitalina.ustinova@gmail.com",
+    "phone": "89113815851",
+    "age": "4",
+    "style": "Baby",
+    "registration_date": "2025-10-28T05:07:13.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040388",
+    "name": "Дарина",
+    "email": "darina.zueva@gmail.com",
+    "phone": "89113815852",
+    "age": "22",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:08:24.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040389",
+    "name": "Жасмин",
+    "email": "zhasmin.shelestova@gmail.com",
+    "phone": "89113815853",
+    "age": "19",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T05:09:35.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040390",
+    "name": "Иванна",
+    "email": "ivanna.gracheva@gmail.com",
+    "phone": "89113815854",
+    "age": "16",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T05:10:46.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040391",
+    "name": "Камилла",
+    "email": "kamilla.rodionova@gmail.com",
+    "phone": "89113815855",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T05:11:57.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040392",
+    "name": "Леонида",
+    "email": "leonida.volkova@gmail.com",
+    "phone": "89113815856",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T05:12:08.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040393",
+    "name": "Марьяна",
+    "email": "mariana.artemyeva@gmail.com",
+    "phone": "89113815857",
+    "age": "20",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T05:13:19.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040394",
+    "name": "Ника",
+    "email": "nika.lapina@gmail.com",
+    "phone": "89113815858",
+    "age": "15",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T05:14:20.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040395",
+    "name": "Олеся",
+    "email": "olesya.pankova@gmail.com",
+    "phone": "89113815859",
+    "age": "18",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:15:31.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040396",
+    "name": "Павла",
+    "email": "pavla.semyonova@gmail.com",
+    "phone": "89113815860",
+    "age": "14",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T05:16:42.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040397",
+    "name": "Рената",
+    "email": "renata.fokina@gmail.com",
+    "phone": "89113815861",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T05:17:53.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040398",
+    "name": "Серафима",
+    "email": "sima.vlasova@gmail.com",
+    "phone": "89113815862",
+    "age": "21",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T05:18:04.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040399",
+    "name": "Устинья",
+    "email": "ustinya.isaeva@gmail.com",
+    "phone": "89113815863",
+    "age": "10",
+    "style": "Teens",
+    "registration_date": "2025-10-28T05:19:15.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040400",
+    "name": "Федосья",
+    "email": "fedosya.titova@gmail.com",
+    "phone": "89113815864",
+    "age": "5",
+    "style": "Baby",
+    "registration_date": "2025-10-28T05:20:26.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040401",
+    "name": "Христина",
+    "email": "hristina.sazonova@gmail.com",
+    "phone": "89113815865",
+    "age": "23",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T05:21:37.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040402",
+    "name": "Цветана",
+    "email": "cvetana.yakovleva@gmail.com",
+    "phone": "89113815866",
+    "age": "24",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:22:48.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040403",
+    "name": "Шарлотта",
+    "email": "sharlotta.vasilyeva@gmail.com",
+    "phone": "89113815867",
+    "age": "19",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T05:23:59.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040404",
+    "name": "Эмилия",
+    "email": "emiliya.petrova@gmail.com",
+    "phone": "89113815868",
+    "age": "14",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T05:25:10.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040405",
+    "name": "Юния",
+    "email": "yuniya.borislova@gmail.com",
+    "phone": "89113815869",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T05:26:21.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040406",
+    "name": "Ядвига",
+    "email": "yadviga.zharova@gmail.com",
+    "phone": "89113815870",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T05:27:32.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040407",
+    "name": "Агата",
+    "email": "agata.kiseleva@gmail.com",
+    "phone": "89113815871",
+    "age": "20",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T05:28:43.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040408",
+    "name": "Беатрис",
+    "email": "beatris.olyunina@gmail.com",
+    "phone": "89113815872",
+    "age": "16",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:29:54.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040409",
+    "name": "Венера",
+    "email": "venera.rybina@gmail.com",
+    "phone": "89113815873",
+    "age": "15",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T05:30:05.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040410",
+    "name": "Гертруда",
+    "email": "gertruda.sadova@gmail.com",
+    "phone": "89113815874",
+    "age": "18",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T05:31:16.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040411",
+    "name": "Дина",
+    "email": "dina.odincova@gmail.com",
+    "phone": "89113815875",
+    "age": "12",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T05:32:27.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040412",
+    "name": "Есения",
+    "email": "esenia.bulanova@gmail.com",
+    "phone": "89113815876",
+    "age": "14",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T05:33:38.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040413",
+    "name": "Зоя",
+    "email": "zoya.koroleva@gmail.com",
+    "phone": "89113815877",
+    "age": "11",
+    "style": "Teens",
+    "registration_date": "2025-10-28T05:34:49.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040414",
+    "name": "Иветта",
+    "email": "ivetta.ustinova@gmail.com",
+    "phone": "89113815878",
+    "age": "4",
+    "style": "Baby",
+    "registration_date": "2025-10-28T05:35:50.753789",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040415",
+    "name": "Корнелия",
+    "email": "kornelia.shibina@gmail.com",
+    "phone": "89113815879",
+    "age": "22",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:36:01.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040416",
+    "name": "Людмила",
+    "email": "lyuda.konovalova@gmail.com",
+    "phone": "89113815880",
+    "age": "19",
+    "style": "Girly Choreo",
+    "registration_date": "2025-10-28T05:37:12.159753",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040417",
+    "name": "Марта",
+    "email": "marta.belousova@gmail.com",
+    "phone": "89113815881",
+    "age": "16",
+    "style": "Choreo",
+    "registration_date": "2025-10-28T05:38:23.852741",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040418",
+    "name": "Нелли",
+    "email": "nelli.ustinova@gmail.com",
+    "phone": "89113815882",
+    "age": "13",
+    "style": "Teens",
+    "registration_date": "2025-10-28T05:39:34.753159",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040419",
+    "name": "Оксана",
+    "email": "oksana.zimina@gmail.com",
+    "phone": "89113815883",
+    "age": "17",
+    "style": "Jazz funk",
+    "registration_date": "2025-10-28T05:40:45.456852",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040420",
+    "name": "Пелагея",
+    "email": "pelageya.ryabova@gmail.com",
+    "phone": "89113815884",
+    "age": "20",
+    "style": "Hip-hop",
+    "registration_date": "2025-10-28T05:41:56.789123",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040421",
+    "name": "Роза",
+    "email": "roza.gorshkova@gmail.com",
+    "phone": "89113815885",
+    "age": "15",
+    "style": "Girly hip-hop",
+    "registration_date": "2025-10-28T05:42:07.852456",
+    "status": "active"
+  },
+  {
+    "id": "user_20251028040422",
+    "name": "Снежана",
+    "email": "snezhana.volkova@gmail.com",
+    "phone": "89113815886",
+    "age": "18",
+    "style": "High Heels",
+    "registration_date": "2025-10-28T05:43:18.753789",
+    "status": "active"
   }
 ]
