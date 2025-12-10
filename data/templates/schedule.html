@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Расписание - Танцевальная студия</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Панель пользователя -->
+        {% if user_name %}
+        <div class="user-panel">
+            <div class="user-info">
+                Здравствуйте, <strong>{{ user_name }}</strong>!
+            </div>
+            <div>
+                <a href="/profile" class="btn">Личный кабинет</a>
+                <a href="/logout" class="btn btn-logout">Выйти</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Навигация -->
+        <nav>
+            <a href="/">Главная</a>
+            {% if not user_name %}
+                <a href="/registration">Регистрация</a>
+                <a href="/login">Войти</a>
+            {% endif %}
+            <a href="/prices">Цены</a>
+            <a href="/coaches">Тренера</a>
+        </nav>
+
+        <h1>Расписание занятий</h1>
+
+        <!-- Вывод всех категорий расписания -->
+        {% for category, items in schedule_data.items() %}
+        <h2>{{ category.upper().replace('_', ' ') }}</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Тренер/Команда</th>
+                    <th>Тип</th>
+                    <th>Дни</th>
+                    <th>Время</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, info in items.items() %}
+                    {% if info.schedule %}
+                        {% for day, time in info.schedule.items() %}
+                        <tr>
+                            <td>{{ name }}</td>
+                            <td>{{ info.get('type', info.get('trainer', '')) }}</td>
+                            <td>{{ day }}</td>
+                            <td class="time-cell">{{ time }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>{{ name }}</td>
+                            <td>{{ info.get('type', info.get('trainer', '')) }}</td>
+                            <td colspan="2" class="no-schedule">Расписание уточняется</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+
+        <!-- Дополнительная информация -->
+        <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+            <h3>Важная информация:</h3>
+            <ul style="margin-top: 1rem;">
+                <li>Все занятия проводятся по адресу: Рижский пр. 16</li>
+                <li>Продолжительность групповых занятий: 2 часа</li>
+                <li>Продолжительность индивидуальных занятий: 1-2 часа</li>
+                <li>Для записи на занятия необходима предварительная регистрация</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Цены - Танцевальная студия</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "/static/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Главная</a>
+        {% if not user_name %}
+            <a href="/registration">Регистрация</a>
+            <a href="/login">Войти</a>
+        {% endif %}
+        <a href="/coaches">Тренера</a>
+        <a href="/schedule">Расписание</a>
+    </nav>
+
+    <div class="container">
+        <h1>Цены на занятия</h1>
+
+        <h2>Пробное занятие</h2>
+        <div class="prices-grid">
+            <div class="price-card">
+                <h3>{{ prices_data.trial.name }}</h3>
+                <div class="price">{{ prices_data.trial.price }}</div>
+                <p class="conditions">{{ prices_data.trial.conditions }}</p>
+            </div>
+        </div>
+
+        <h2>Детские группы</h2>
+        <div class="prices-grid">
+            {% for key, info in prices_data.kids.items() %}
+            <div class="price-card">
+                <h3>{{ info.name }}</h3>
+                <div class="price">{{ info.price }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Взрослые группы</h2>
+        <div class="prices-grid">
+            {% for key, info in prices_data.groups.items() %}
+            <div class="price-card">
+                <h3>{{ info.name }}</h3>
+                <div class="price">{{ info.price }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>Условия</h2>
+        <div class="prices-grid">
+            {% for key, info in prices_data.other.items() %}
+            <div class="price-card">
+                <h3>{{ info.name }}</h3>
+                <div class="price">{{ info.price }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

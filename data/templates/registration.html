@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация - Танцевальная студия</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2rem; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1rem; }
+        input { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { background: #e91e63; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; width: 100%; transition: background 0.3s; }
+        .btn:hover { background: #c2185b; }
+        h1 { color: #e91e63; margin-bottom: 1rem; }
+        .error { background: #ffebee; padding: 1rem; border-radius: 5px; margin: 1rem 0; color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Регистрация</h1>
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Имя" required
+                       value="{{ form_data.name if form_data else '' }}">
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" required
+                       value="{{ form_data.email if form_data else '' }}">
+            </div>
+            <div class="form-group">
+                <input type="tel" name="phone" placeholder="Телефон" required
+                       value="{{ form_data.phone if form_data else '' }}">
+            </div>
+            <div class="form-group">
+                <input type="number" name="age" placeholder="Возраст" required
+                       value="{{ form_data.age if form_data else '' }}">
+            </div>
+            <button type="submit" class="btn">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+</html>

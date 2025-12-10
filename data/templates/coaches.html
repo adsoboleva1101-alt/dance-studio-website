@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тренеры - Танцевальная студия</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+    {% if user_name %}
+    <div class="user-panel">
+        <div class="user-dropdown">
+            <button class="user-avatar">
+                <span class="avatar-letter">{{ user_name[0] }}</span>
+            </button>
+            <div class="dropdown-content">
+                <div class="user-info-dropdown">
+                    <strong>{{ user_name }}</strong>
+                </div>
+                <a href="/profile"><i class="fas fa-user-circle"></i> Личный кабинет</a>
+                <a href="/settings"><i class="fas fa-cog"></i> Настройки</a>
+                <div class="dropdown-divider"></div>
+                <a href="/logout" class="logout-link"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+        <nav>
+            <a href="/">Главная</a>
+            {% if not user_name %}
+                <a href="/registration">Регистрация</a>
+                <a href="/login">Войти</a>
+            {% endif %}
+            <a href="/prices">Цены</a>
+            <a href="/schedule">Расписание</a>
+        </nav>
+
+        <h1>Наши тренеры</h1>
+
+        <div class="intro-text">
+            <p>В нашей студии работают профессиональные хореографы и танцоры с многолетним опытом.
+            Каждый тренер специализируется на определенных направлениях и найдет подход к каждому ученику,
+            независимо от возраста и уровня подготовки.</p>
+        </div>
+
+        <div class="coaches-grid">
+            {% for coach in coaches_data %}
+            <div class="coach-card">
+                <img src="/static/images/coaches/{{ coach.id }}.jpg"
+                    alt="Фотография тренера {{ coach.name }}"
+                    class="coach-photo">
+                <h3>{{ coach.name }}</h3>
+
+                <div class="specialization-tags">
+                    {% for spec in coach.specialization %}
+                    <span class="tag">{{ spec }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="coach-story">{{ coach.story }}</div>
+
+                <div class="social-links">
+                    <div class="social-link">
+                        <strong>VK:</strong>
+                        <a href="{{ coach.vk }}" target="_blank">{{ coach.vk.split('//')[1] if '//' in coach.vk else coach.vk }}</a>
+                    </div>
+                    <div class="social-link">
+                        <strong>Instagram:</strong> {{ coach.instagram }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
