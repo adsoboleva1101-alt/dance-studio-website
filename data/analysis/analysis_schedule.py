@@ -94,7 +94,7 @@ def schedule_chart(data):
 
 
 def main():
-    data = load_schedule_data('schedule.json')
+    data = load_schedule_data('../schedule.json')
 
     if data:
         schedule_chart(data)

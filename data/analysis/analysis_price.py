@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 def get_data():
-    with open('users.json', 'r', encoding='utf-8') as file1:
+    with open('../users.json', 'r', encoding='utf-8') as file1:
         users = json.load(file1)
 
-    with open('prices.json', 'r', encoding='utf-8') as file2:
+    with open('../prices.json', 'r', encoding='utf-8') as file2:
         prices = json.load(file2)
     return users, prices
 
@@ -121,7 +121,7 @@ def make_money_chart():
         text.set_weight('bold')
         text.set_color('white')
 
-    plt.title(f'Деньги по направлениям\nВсего денег: {all_money} руб | Всего людей: {all_people}',
+    plt.title(f'Выручка по направлениям\nОбщая сумма: {all_money} руб | Всего людей: {all_people}',
               size=13, weight='bold', pad=15)
 
     plt.axis('equal')

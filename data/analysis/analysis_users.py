@@ -163,7 +163,7 @@ def plot_style_pie_chart(data):
     colors = pastel_colors[:len(labels)]
     plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%',
             startangle=90, shadow=False)
-    plt.axis('equal')  # Чтобы диаграмма была круглой
+    plt.axis('equal')
     plt.title('Соотношение стилей танцев\n',
               fontsize=16, fontweight='bold', pad=20)
 
@@ -171,7 +171,7 @@ def plot_style_pie_chart(data):
     plt.show()
 
 def main():
-    data = load_users_data('users.json')
+    data = load_users_data('../users.json')
 
     if data:
         plot_age_by_style(data)
