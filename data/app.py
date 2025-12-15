@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, session, jsonify
 import json
 import datetime
 import os
+import sqlite3
 import requests
 
 app = Flask(__name__)
@@ -379,32 +380,105 @@ def prices():
     return render_template('prices.html', prices_data=PRICES_DATA, user_name=user_name)
 
 
+# Страница входа
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Страница входа в систему"""
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        users = load_json_file(USERS_FILE)
+
+        # Проверяем есть ли пользователь с таким email
+        user = next((u for u in users if u.get('email') == email), None)
+
+        if user:
+            # Проверка пароля (если в данных есть поле password)
+            # В вашем текущем формате данных нет пароля, поэтому пока пропускаем проверку
+            # В будущем можно добавить:
+            # if user.get('password') == password:
+            #     return redirect('/dashboard')  # или другую защищенную страницу
+
+            # Пока просто перенаправляем на главную
+            return redirect('/')
+        else:
+            return render_template('login.html',
+                                   error="Пользователь с таким email не найден",
+                                   form_data={'email': email})
+
+    # Если GET запрос, показываем форму
+    message = request.args.get('message')
+    return render_template('login.html', message=message)
+
+
+# Страница регистрации
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     """Страница регистрации"""
     if request.method == 'POST':
+        # Получаем данные из формы
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        phone = request.form.get('phone')
+        age = request.form.get('age')
+
+        # Проверка обязательных полей
+        if not all([name, surname, email, password, phone, age]):
+            return render_template('registration.html',
+                                   error="Все поля обязательны для заполнения",
+                                   form_data=request.form)
+
+        # Проверка формата email (базовая)
+        if '@' not in email or '.' not in email:
+            return render_template('registration.html',
+                                   error="Неверный формат email",
+                                   form_data=request.form)
+
+        # Проверка возраста
+        try:
+            age_int = int(age)
+            if age_int < 0 or age_int > 150:
+                return render_template('registration.html',
+                                       error="Неверный возраст",
+                                       form_data=request.form)
+        except ValueError:
+            return render_template('registration.html',
+                                   error="Возраст должен быть числом",
+                                   form_data=request.form)
+
+        # Подготовка данных пользователя
         user_data = {
             'id': f"user_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}",
-            'name': request.form.get('name'),
-            'email': request.form.get('email'),
-            'phone': request.form.get('phone'),
-            'age': request.form.get('age'),
+            'name': name,
+            'surname': surname,
+            'email': email,
+            'password': password,
+            'phone': phone,
+            'age': age_int,
             'registration_date': datetime.datetime.now().isoformat(),
             'status': 'active'
         }
 
         users = load_json_file(USERS_FILE)
 
-        if any(user.get('email') == user_data['email'] for user in users):
+        # Проверка уникальности email
+        if any(user.get('email') == email for user in users):
             return render_template('registration.html',
-                                 error="Пользователь с таким email уже существует",
-                                 form_data=request.form)
+                                   error="Пользователь с таким email уже существует",
+                                   form_data=request.form)
 
+        # Добавление пользователя
         users.append(user_data)
         if save_json_file(USERS_FILE, users):
-            return redirect('/')
+            # Перенаправляем на страницу входа с сообщением об успехе
+            return redirect('/login?message=Регистрация успешна! Теперь войдите в систему')
         else:
-            return render_template('registration.html', error="Ошибка регистрации")
+            return render_template('registration.html',
+                                   error="Ошибка при сохранении данных",
+                                   form_data=request.form)
 
     return render_template('registration.html')
 
