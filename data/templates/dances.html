@@ -1,25 +1,519 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>О стилях танцев - Танцевальная студия</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Танцевальные стили - Танцевальная студия</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-login {
+            background: #ff4d94;
+            padding: 0.5rem 1.5rem !important;
+        }
+
+        /* Hero Section */
+        .dances-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .dances-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .dances-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 3rem 0 2rem;
+            background: white;
+        }
+
+        .filter-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.8rem;
+            border: 2px solid #6a11cb;
+            background: white;
+            color: #6a11cb;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #6a11cb;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
+        }
+
+        .filter-btn.active {
+            background: #6a11cb;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
+        }
+
+        /* Dance Styles Grid */
+        .dance-styles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .dance-style-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid #eaeaea;
+        }
+
+        .dance-style-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border-color: #6a11cb;
+        }
+
+        .dance-icon {
+            font-size: 4rem;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        .card-content {
+            padding: 1.8rem;
+        }
+
+        .dance-style-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            min-height: 3.5rem;
+        }
+
+        .dance-origin {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dance-description {
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .dance-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .difficulty {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .difficulty.easy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .difficulty.medium {
+            background: #fff8e1;
+            color: #ff8f00;
+        }
+
+        .difficulty.hard {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .music-type {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .details-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .details-link::after {
+            content: '→';
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .details-link:hover {
+            color: #ff4d94;
+        }
+
+        .details-link:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* Schedule Section */
+        .schedule-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            font-size: 2.2rem;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            background: white;
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .schedule-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tr:hover {
+            background: #f8f9ff;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #6a11cb;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff4d94;
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255,77,148,0.3);
+        }
+
+        .btn:hover {
+            background: #ff2d82;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,77,148,0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 4rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #ff4d94;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            color: #ddd;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ff4d94;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .dances-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .dance-styles {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .schedule-table {
+                display: block;
+                overflow-x: auto;
+                font-size: 0.9rem;
+            }
+
+            .schedule-table th,
+            .schedule-table td {
+                padding: 0.8rem;
+            }
+
+            .cta-section {
+                padding: 3rem 1rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Анимации */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Категории */
+        .category-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.9);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6a11cb;
+            backdrop-filter: blur(5px);
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container header-content">
-            <div class="logo">
-                Танцевальная студия
-            </div>
+            <a href="/" class="logo">Танцевальная студия</a>
             <nav>
                 <ul>
                     <li><a href="/">Главная</a></li>
-                    <li><a href="/schedule">Расписание</a></li>
+                    <li><a href="#styles">Стили</a></li>
+                    <li><a href="#schedule">Расписание</a></li>
                     <li><a href="/coaches">Тренеры</a></li>
-                    <li><a href="/prices">Цены</a></li>
-                    <li><a href="/registration">Регистрация</a></li>
-                    <li><a href="/login" class="btn-login">Вход</a></li>
+                    <li><a href="/registration" class="btn-login">Регистрация</a></li>
                 </ul>
             </nav>
         </div>
@@ -28,120 +522,42 @@
     <main class="dances-main">
         <section class="dances-hero">
             <div class="container">
-                <h1>О стилях танцев</h1>
-                <p>Изучите разнообразие танцевальных направлений и найдите свой стиль</p>
+                <h1>Танцевальные направления</h1>
+                <p>Откройте для себя мир современных танцевальных стилей и найдите свой уникальный путь к самовыражению</p>
             </div>
         </section>
 
-        <section class="dances-section">
+        <section class="filter-section">
             <div class="container">
-                <div class="dance-intro">
-                    <h2>Популярные танцевальные направления</h2>
-                    <p>Каждое танцевальное направление имеет свою уникальную историю, технику и характер. Здесь вы найдете информацию о самых популярных стилях, которые мы преподаем в нашей студии.</p>
-                </div>
-
-                <div class="dance-styles">
-                    <div class="dance-style-card">
-                        <div class="dance-icon">🕺</div>
-                        <h3>Хаус (House)</h3>
-                        <p class="dance-origin">Происхождение: США (Чикаго), 1980-е</p>
-                        <p>Динамичный уличный танец, возникший в клубах Чикаго. Характеризуется быстрой работой ног, сложной ритмикой и импровизацией.</p>
-                        <div class="dance-details">
-                            <span class="difficulty easy">Начальный уровень</span>
-                            <span class="music-type">House музыка</span>
-                        </div>
-                    </div>
-
-                    <div class="dance-style-card">
-                        <div class="dance-icon">💃</div>
-                        <h3>Сальса (Salsa)</h3>
-                        <p class="dance-origin">Происхождение: Куба, 1960-е</p>
-                        <p>Страстный парный танец с элементами африканских и европейских традиций. Отличается ритмичными движениями бедер и близким контактом партнеров.</p>
-                        <div class="dance-details">
-                            <span class="difficulty easy">Начальный уровень</span>
-                            <span class="music-type">Латиноамериканская</span>
-                        </div>
-                    </div>
-
-                    <div class="dance-style-card">
-                        <div class="dance-icon">🩰</div>
-                        <h3>Контемпорари</h3>
-                        <p class="dance-origin">Происхождение: Европа/США, 1950-е</p>
-                        <p>Современный сценический танец, сочетающий элементы балета, джаза и модерна. Акцент на эмоциональной выразительности и работе с пространством.</p>
-                        <div class="dance-details">
-                            <span class="difficulty hard">Продвинутый уровень</span>
-                            <span class="music-type">Разнообразная</span>
-                        </div>
-                    </div>
-
-                    <div class="dance-style-card">
-                        <div class="dance-icon">👯</div>
-                        <h3>Хип-хоп (Hip-Hop)</h3>
-                        <p class="dance-origin">Происхождение: США, 1970-е</p>
-                        <p>Уличный танец, часть хип-хоп культуры. Включает стили: breaking, locking, popping. Характеризуется энергичностью и акробатическими элементами.</p>
-                        <div class="dance-details">
-                            <span class="difficulty medium">Средний уровень</span>
-                            <span class="music-type">Hip-Hop, R&B</span>
-                        </div>
-                    </div>
-
-                    <div class="dance-style-card">
-                        <div class="dance-icon">💃</div>
-                        <h3>Бачата (Bachata)</h3>
-                        <p class="dance-origin">Происхождение: Доминикана, 1960-е</p>
-                        <p>Чувственный парный танец с плавными движениями бедер и тесным контактом партнеров. Отличается романтическим настроением.</p>
-                        <div class="dance-details">
-                            <span class="difficulty easy">Начальный уровень</span>
-                            <span class="music-type">Бачата</span>
-                        </div>
-                    </div>
-
-                    <div class="dance-style-card">
-                        <div class="dance-icon">🕴️</div>
-                        <h3>Джаз-фанк (Jazz Funk)</h3>
-                        <p class="dance-origin">Происхождение: США, 2000-е</p>
-                        <p>Энергичный стиль, сочетающий джазовую технику с элементами хип-хопа. Отличается резкими движениями, изоляцией и актерской игрой.</p>
-                        <div class="dance-details">
-                            <span class="difficulty hard">Продвинутый уровень</span>
-                            <span class="music-type">Поп, R&B</span>
-                        </div>
-                    </div>
+                <h2>Выберите направление</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterStyles('all')">Все стили</button>
+                    <button class="filter-btn" onclick="filterStyles('street')">Уличные стили</button>
+                    <button class="filter-btn" onclick="filterStyles('female')">Женственные стили</button>
+                    <button class="filter-btn" onclick="filterStyles('contemporary')">Современные</button>
+                    <button class="filter-btn" onclick="filterStyles('beginner')">Для начинающих</button>
                 </div>
             </div>
         </section>
 
-        <section class="benefits-section">
+        <section class="container" id="styles">
+            <div id="loading" class="loading">
+                <div class="loader"></div>
+                <p>Загружаем информацию о танцевальных стилях...</p>
+            </div>
+            
+            <div id="dance-styles-container" class="dance-styles" style="display: none;">
+                <!-- Стили будут загружены через JavaScript -->
+            </div>
+        </section>
+
+        <section class="schedule-section" id="schedule">
             <div class="container">
-                <h2>Польза танцев для здоровья</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <h3>Физическое здоровье</h3>
-                        <ul>
-                            <li>Улучшение координации</li>
-                            <li>Развитие гибкости</li>
-                            <li>Укрепление мышц</li>
-                            <li>Кардио-тренировка</li>
-                        </ul>
-                    </div>
-
-                    <div class="benefit-card">
-                        <h3>Психическое здоровье</h3>
-                        <ul>
-                            <li>Снижение стресса</li>
-                            <li>Улучшение настроения</li>
-                            <li>Повышение уверенности</li>
-                            <li>Развитие креативности</li>
-                        </ul>
-                    </div>
-
-                    <div class="benefit-card">
-                        <h3>Социальные преимущества</h3>
-                        <ul>
-                            <li>Новые знакомства</li>
-                            <li>Командная работа</li>
-                            <li>Коммуникативные навыки</li>
-                            <li>Культурный обмен</li>
-                        </ul>
+                <h2 class="section-title">Расписание занятий</h2>
+                <div id="schedule-container">
+                    <div class="loading">
+                        <div class="loader"></div>
+                        <p>Загружаем расписание...</p>
                     </div>
                 </div>
             </div>
@@ -149,9 +565,9 @@
 
         <section class="cta-section">
             <div class="container">
-                <h2>Готовы начать танцевать?</h2>
-                <p>Приходите на пробное занятие и выберите направление, которое вам по душе!</p>
-                <a href="/registration" class="btn">Записаться на пробное</a>
+                <h2>Начните танцевать сегодня!</h2>
+                <p>Первое пробное занятие бесплатно. Выберите стиль и запишитесь прямо сейчас</p>
+                <button onclick="window.location.href='/registration'" class="btn">Записаться на пробное занятие</button>
             </div>
         </section>
     </main>
@@ -161,21 +577,23 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Танцевальная студия</h3>
-                    <p>Найди свой стиль и раскрой свой потенциал!</p>
+                    <p>Раскройте свой танцевальный потенциал вместе с нами!</p>
+                    <p>Мы обучаем современным направлениям танцев для всех уровней подготовки.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Контакты</h3>
-                    <p>Email: info@dance-studio.ru</p>
-                    <p>Телефон: +7 (999) 123-45-67</p>
-                    <p>Адрес: Москва, ул. Танцевальная, 15</p>
+                    <p>📧 Email: info@dance-studio.ru</p>
+                    <p>📞 Телефон: +7 (999) 123-45-67</p>
+                    <p>📍 Адрес: Москва, ул. Танцевальная, 15</p>
+                    <p>🕐 Часы работы: Пн-Вс 9:00-22:00</p>
                 </div>
                 <div class="footer-section">
                     <h3>Быстрые ссылки</h3>
                     <p><a href="/">Главная</a></p>
-                    <p><a href="/schedule">Расписание</a></p>
-                    <p><a href="/coaches">Тренеры</a></p>
-                    <p><a href="/prices">Цены</a></p>
-                    <p><a href="/dances">О танцах</a></p>
+                    <p><a href="#styles">Стили танцев</a></p>
+                    <p><a href="#schedule">Расписание</a></p>
+                    <p><a href="/coaches">Наши тренеры</a></p>
+                    <p><a href="/prices">Стоимость занятий</a></p>
                     <p><a href="/registration">Регистрация</a></p>
                 </div>
             </div>
@@ -184,5 +602,261 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Данные танцевальных стилей
+        const danceStylesData = [
+            {
+                id: 1,
+                name: "Хип-хоп (Hip-Hop)",
+                icon: "👯",
+                origin: "США, 1970-е",
+                description: "Уличный танец, часть хип-хоп культуры. Включает стили: breaking, locking, popping. Характеризуется энергичностью, акробатическими элементами и свободной импровизацией.",
+                difficulty: "medium",
+                musicType: "Hip-Hop, R&B",
+                details: "https://labocadance.ru/stati/chto-takoe-hip-hop/",
+                category: "street",
+                level: "medium"
+            },
+            {
+                id: 2,
+                name: "Гёрли хип-хоп (Girly Hip-Hop)",
+                icon: "💃",
+                origin: "США, 2000-е",
+                description: "Женственное направление хип-хопа с плавными, волнообразными движениями. Сочетает хип-хоп основы с элементами джаз-фанка и вога. Идеально для развития пластики и женственности.",
+                difficulty: "medium",
+                musicType: "R&B, Поп музыка",
+                details: "https://9zalov.ru/directions/girly-hip-hop/",
+                category: "female",
+                level: "medium"
+            },
+            {
+                id: 3,
+                name: "Хай хилз (High Heels)",
+                icon: "👠",
+                origin: "США, 2010-е",
+                description: "Сексуальный и женственный стиль, исполняемый на высоких каблуках. Включает элементы джаз-фанка, вога и хип-хопа. Развивает уверенность в себе и грациозность.",
+                difficulty: "hard",
+                musicType: "Поп, R&B, Хип-хоп",
+                details: "https://www.divadance.ru/reports/r3high_heels_tanets_gougou_haihilz.htm",
+                category: "female",
+                level: "hard"
+            },
+            {
+                id: 4,
+                name: "Хорео (Choreo)",
+                icon: "🎭",
+                origin: "США, 1990-е",
+                description: "Современная хореография, объединяющая различные стили. Акцент на чистоте линий, музыкальности и постановочных номерах. Развивает артистизм и сценическое присутствие.",
+                difficulty: "medium",
+                musicType: "Разнообразная",
+                details: "https://9zalov.ru/directions/choreo/",
+                category: "contemporary",
+                level: "medium"
+            },
+            {
+                id: 5,
+                name: "Джаз-фанк (Jazz Funk)",
+                icon: "🕴️",
+                origin: "США, 2000-е",
+                description: "Энергичный стиль, сочетающий джазовую технику с элементами хип-хопа. Отличается резкими движениями, изоляцией и актерской игрой. Развивает координацию и музыкальность.",
+                difficulty: "hard",
+                musicType: "Поп, R&B, Фанк",
+                details: "https://9zalov.ru/directions/dzhaz-fank/",
+                category: "contemporary",
+                level: "hard"
+            },
+            {
+                id: 6,
+                name: "Гёрли хорео (Girly Choreo)",
+                icon: "💖",
+                origin: "2020-е",
+                description: "Женственное направление современной хореографии с элементами гёрли хип-хопа. Плавные, изящные движения с акцентом на женственность и выразительность.",
+                difficulty: "medium",
+                musicType: "Поп, R&B, Латина",
+                details: "https://panthers.by/direction/11",
+                category: "female",
+                level: "easy"
+            }
+        ];
+
+        const scheduleData = [
+            { id: 1, style: "Хип-хоп", day: "Понедельник", time: "19:00", level: "Начальный", coach: "Алексей", duration: "1.5 часа" },
+            { id: 2, style: "Гёрли хип-хоп", day: "Вторник", time: "18:00", level: "Средний", coach: "Мария", duration: "1.5 часа" },
+            { id: 3, style: "Хай хилз", day: "Среда", time: "20:00", level: "Продвинутый", coach: "Анна", duration: "2 часа" },
+            { id: 4, style: "Хорео", day: "Четверг", time: "19:30", level: "Средний", coach: "Иван", duration: "1.5 часа" },
+            { id: 5, style: "Джаз-фанк", day: "Пятница", time: "18:30", level: "Продвинутый", coach: "Екатерина", duration: "2 часа" },
+            { id: 6, style: "Гёрли хорео", day: "Суббота", time: "12:00", level: "Начальный", coach: "Ольга", duration: "1.5 часа" },
+            { id: 7, style: "Хип-хоп", day: "Суббота", time: "14:00", level: "Продвинутый", coach: "Алексей", duration: "2 часа" },
+            { id: 8, style: "Джаз-фанк", day: "Воскресенье", time: "11:00", level: "Начальный", coach: "Екатерина", duration: "1.5 часа" }
+        ];
+
+        // DOM элементы
+        let danceStylesContainer;
+        let scheduleContainer;
+        let loadingElement;
+        let filterButtons;
+        let currentStyles = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            danceStylesContainer = document.getElementById('dance-styles-container');
+            scheduleContainer = document.getElementById('schedule-container');
+            loadingElement = document.getElementById('loading');
+            filterButtons = document.querySelectorAll('.filter-btn');
+
+            // Загружаем данные
+            loadDanceStyles();
+            loadSchedule();
+            
+            // Добавляем обработчики для фильтров
+            setupFilterButtons();
+        });
+
+        function loadDanceStyles() {
+            // Имитация загрузки с API
+            setTimeout(() => {
+                currentStyles = danceStylesData;
+                displayDanceStyles(currentStyles);
+            }, 800);
+        }
+
+        function displayDanceStyles(styles) {
+            loadingElement.style.display = 'none';
+            danceStylesContainer.style.display = 'grid';
+            
+            danceStylesContainer.innerHTML = styles.map(style => `
+                <div class="dance-style-card fade-in" data-category="${style.category}" data-level="${style.level}">
+                    <div class="category-tag">${getCategoryName(style.category)}</div>
+                    <div class="dance-icon">${style.icon}</div>
+                    <div class="card-content">
+                        <h3>${style.name}</h3>
+                        <p class="dance-origin">🎭 Происхождение: ${style.origin}</p>
+                        <p class="dance-description">${style.description}</p>
+                        <a href="${style.details}" target="_blank" class="details-link" onclick="event.stopPropagation();">
+                            Узнать больше о стиле
+                        </a>
+                        <div class="dance-details">
+                            <span class="difficulty ${style.difficulty}">
+                                ${getDifficultyText(style.difficulty)}
+                            </span>
+                            <span class="music-type">🎵 ${style.musicType}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterStyles(category) {
+            // Обновляем активные кнопки
+            filterButtons.forEach(btn => {
+                if (btn.textContent.includes(getCategoryName(category)) || 
+                    (category === 'all' && btn.textContent === 'Все стили') ||
+                    (category === 'beginner' && btn.textContent === 'Для начинающих')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            let filtered;
+            
+            if (category === 'all') {
+                filtered = danceStylesData;
+            } else if (category === 'beginner') {
+                filtered = danceStylesData.filter(style => style.level === 'easy');
+            } else {
+                filtered = danceStylesData.filter(style => style.category === category);
+            }
+            
+            // Показываем анимацию загрузки
+            danceStylesContainer.style.display = 'none';
+            loadingElement.style.display = 'block';
+            
+            // Имитация загрузки фильтрованных данных
+            setTimeout(() => {
+                displayDanceStyles(filtered);
+                // Прокручиваем к началу секции
+                document.getElementById('styles').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        function loadSchedule() {
+            setTimeout(() => {
+                displaySchedule(scheduleData);
+            }, 1000);
+        }
+
+        function displaySchedule(schedule) {
+            scheduleContainer.innerHTML = `
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Стиль танца</th>
+                            <th>День недели</th>
+                            <th>Время</th>
+                            <th>Уровень</th>
+                            <th>Тренер</th>
+                            <th>Длительность</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${schedule.map(item => `
+                            <tr>
+                                <td><strong>${item.style}</strong></td>
+                                <td>${item.day}</td>
+                                <td>${item.time}</td>
+                                <td><span class="difficulty ${getDifficultyClass(item.level)}">${item.level}</span></td>
+                                <td>${item.coach}</td>
+                                <td>${item.duration}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function setupFilterButtons() {
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Удаляем активный класс у всех кнопок
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Добавляем активный класс текущей кнопке
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        // Вспомогательные функции
+        function getCategoryName(category) {
+            const categories = {
+                'street': 'Уличный',
+                'female': 'Женственный',
+                'contemporary': 'Современный',
+                'all': 'Все'
+            };
+            return categories[category] || category;
+        }
+
+        function getDifficultyText(difficulty) {
+            const map = {
+                'easy': 'Начальный уровень',
+                'medium': 'Средний уровень',
+                'hard': 'Продвинутый уровень'
+            };
+            return map[difficulty] || difficulty;
+        }
+
+        function getDifficultyClass(level) {
+            const map = {
+                'Начальный': 'easy',
+                'Средний': 'medium',
+                'Продвинутый': 'hard'
+            };
+            return map[level] || 'medium';
+        }
+
+        // Делаем функции глобальными для использования в HTML
+        window.filterStyles = filterStyles;
+    </script>
 </body>
 </html>
