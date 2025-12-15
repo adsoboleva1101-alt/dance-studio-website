@@ -987,5 +987,50 @@
     "style": "High Heels",
     "registration_date": "2025-10-28T05:43:18.753789",
     "status": "active"
+  },
+  {
+    "id": "user_20251209224140",
+    "name": "Козырева Надежда",
+    "email": "nadiakozureva2006@yandex.ru",
+    "phone": "+79009903201",
+    "age": "19",
+    "registration_date": "2025-12-09T22:41:40.127338",
+    "status": "active"
+  },
+  {
+    "id": "user_20251209230235",
+    "name": "Кухтинова Анна",
+    "email": "kuchtinova06@yandex.ru",
+    "phone": "+79009997242",
+    "age": "18",
+    "registration_date": "2025-12-09T23:02:35.555182",
+    "status": "active"
+  },
+  {
+    "id": "user_20251214213604",
+    "name": "Козырева Надежда",
+    "email": "nadiak06@yandex.ru",
+    "phone": "89009996534",
+    "age": "16",
+    "registration_date": "2025-12-14T21:36:04.996163",
+    "status": "active"
+  },
+  {
+    "id": "user_20251215124206",
+    "name": "Козырева Надежда",
+    "email": "nadiak066@yandex.ru",
+    "phone": "89009996534",
+    "age": "15",
+    "registration_date": "2025-12-15T12:42:06.378910",
+    "status": "active"
+  },
+  {
+    "id": "user_20251215131104",
+    "name": "Козырева Надежда",
+    "email": "nadia6@yandex.ru",
+    "phone": "89009996534",
+    "age": "15",
+    "registration_date": "2025-12-15T13:11:04.555862",
+    "status": "active"
   }
 ]

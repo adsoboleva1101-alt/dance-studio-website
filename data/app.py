@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, session, jsonify
 import json
 import datetime
 import os
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'dance-studio-secret-key'
@@ -363,6 +364,12 @@ def coaches():
     """Страница тренеров"""
     user_name = session.get('user_name')
     return render_template('coaches.html', coaches_data=COACHES_DATA, user_name=user_name)
+
+
+@app.route('/dances')
+def dances():
+    """ Функция для отображения страницы "О танцах" """
+    return render_template('dances.html')
 
 
 @app.route('/prices')

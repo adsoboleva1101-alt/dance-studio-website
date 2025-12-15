@@ -3,7 +3,7 @@
         scroll-behavior: smooth;
     }
     .about-section {
-        scroll-margin-top: 80px; /* Высота вашего header + небольшой отступ */
+        scroll-margin-top: 80px;
     }
     --pink-bright: #ff4d8d;
     --pink-medium: #ff80ab;
@@ -16,15 +16,13 @@
     --blue-pastel: #e1f5fe;
 
     --bg-main: #fafafa;
-    --bg-white: #ffffff;            /* Чистый белый */
-    --bg-light: #fff5f9;            /* Очень светлый розовый фон */
+    --bg-white: #ffffff;
+    --bg-light: #fff5f9;
 
-    /* Текстовые цвета */
-    --text-dark: #2c3e50;           /* Темный синий для текста */
-    --text-medium: #546e7a;         /* Средний серо-синий */
-    --text-light: #78909c;          /* Светлый серо-синий */
+    --text-dark: #2c3e50;
+    --text-medium: #546e7a;
+    --text-light: #78909c;
 
-    /* Дополнительные */
     --white: #ffffff;
     --shadow: 0 8px 30px rgba(255, 77, 141, 0.12);
     --shadow-hover: 0 15px 40px rgba(255, 77, 141, 0.2);
@@ -33,6 +31,36 @@
     --gradient-pink: linear-gradient(135deg, var(--pink-bright), var(--pink-medium));
     --gradient-blue: linear-gradient(135deg, var(--blue-bright), var(--blue-medium));
     --gradient-mix: linear-gradient(135deg, var(--pink-bright), var(--blue-bright));
+}
+
+.about-section {
+    padding: 60px 0;
+}
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 }
 
 * {
@@ -56,7 +84,7 @@ body {
     padding: 0 20px;
 }
 
-/* ===== ТИПОГРАФИЯ ===== */
+/* типография */
 h1, h2, h3, h4 {
     font-weight: 700;
     line-height: 1.2;
@@ -296,7 +324,6 @@ nav ul li:not(:last-child) a:hover::after {
     }
 }
 
-/* ===== КНОПКА - ЧИСТАЯ И ЯРКАЯ ===== */
 .btn {
     display: inline-block;
     background: var(--gradient-mix);
@@ -340,7 +367,6 @@ nav ul li:not(:last-child) a:hover::after {
     left: 100%;
 }
 
-/* ===== FEATURES SECTION ===== */
 .features-section {
     padding: 6rem 0;
     background: var(--bg-white);
@@ -390,7 +416,6 @@ nav ul li:not(:last-child) a:hover::after {
     color: transparent;
 }
 
-/* ===== FOOTER - ТЕМНЫЙ ДЛЯ КОНТРАСТА ===== */
 footer {
     background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
     color: var(--white);
@@ -502,17 +527,393 @@ td {
 .coach-photo {
     width: 150px;
     height: 150px;
-    object-fit: cover;      /* Это важно! */
+    object-fit: cover;
     border-radius: 50%;
     margin: 0 auto 15px;
     display: block;
 }
 
 .coach-card {
-    text-align: center;     /* Чтобы текст был под фото */
+    text-align: center;
     padding: 20px;
 }
 
+/* ===== СТРАНИЦА "О ТАНЦАХ" ===== */
+
+/* Герой-секция для страницы О танцах */
+.dances-hero {
+    background: linear-gradient(135deg,
+        rgba(255, 77, 141, 0.9) 0%,
+        rgba(79, 195, 247, 0.9) 100%),
+        url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 10rem 0 5rem;
+    margin-top: 70px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dances-hero h1 {
+    color: var(--white) !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.dances-hero p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Основной контент */
+.dances-main {
+    background: var(--bg-main);
+    min-height: 100vh;
+}
+
+.dances-section {
+    padding: 5rem 0;
+    background: var(--bg-white);
+}
+
+.dance-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+.dance-intro h2 {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.dance-intro p {
+    font-size: 1.2rem;
+    color: var(--text-medium);
+    line-height: 1.8;
+}
+
+/* Сетка стилей танцев */
+.dance-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin: 3rem 0;
+}
+
+.dance-style-card {
+    background: var(--bg-white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 128, 171, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.dance-style-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-mix);
+}
+
+.dance-style-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--pink-medium);
+}
+
+.dance-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    text-align: center;
+}
+
+.dance-style-card h3 {
+    font-size: 1.8rem;
+    color: var(--pink-bright);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.dance-origin {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.dance-style-card p {
+    color: var(--text-medium);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.dance-details {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+/* Стили для уровней сложности */
+.difficulty {
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.difficulty.easy {
+    background: rgba(76, 175, 80, 0.15);
+    color: #4CAF50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.difficulty.medium {
+    background: rgba(255, 193, 7, 0.15);
+    color: #FF9800;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.difficulty.hard {
+    background: rgba(244, 67, 54, 0.15);
+    color: #F44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.music-type {
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--pink-bright);
+    background: rgba(255, 77, 141, 0.1);
+    border: 1px solid rgba(255, 77, 141, 0.2);
+}
+
+/* Секция преимуществ */
+.benefits-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg,
+        rgba(255, 235, 243, 0.5) 0%,
+        rgba(225, 245, 254, 0.5) 100%);
+}
+
+.benefits-section h2 {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.benefit-card {
+    background: var(--bg-white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 128, 171, 0.1);
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.benefit-card h3 {
+    color: var(--blue-bright);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.benefit-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.benefit-card li {
+    padding: 0.8rem 0;
+    color: var(--text-medium);
+    position: relative;
+    padding-left: 1.8rem;
+    line-height: 1.6;
+}
+
+.benefit-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--pink-bright);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Секция призыва к действию для страницы О танцах */
+.cta-section {
+    text-align: center;
+    padding: 6rem 0;
+    background: linear-gradient(135deg,
+        rgba(255, 77, 141, 0.1) 0%,
+        rgba(79, 195, 247, 0.1) 100%);
+}
+
+.cta-section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.cta-section p {
+    font-size: 1.3rem;
+    color: var(--text-medium);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+/* Стиль для активной ссылки в навигации */
+nav a.active {
+    background: rgba(255, 77, 141, 0.1);
+    color: var(--pink-bright) !important;
+    font-weight: 600;
+}
+
+nav a.active::after {
+    width: 60% !important;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .dances-hero {
+        padding: 8rem 0 4rem;
+    }
+
+    .dances-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .dances-hero p {
+        font-size: 1.1rem;
+        padding: 0 20px;
+    }
+
+    .dance-styles {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 20px;
+    }
+
+    .dance-style-card {
+        padding: 2rem;
+    }
+
+    .dance-icon {
+        font-size: 2.5rem;
+    }
+
+    .dance-style-card h3 {
+        font-size: 1.6rem;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .benefit-card {
+        padding: 2rem;
+    }
+
+    .cta-section h2 {
+        font-size: 2.2rem;
+    }
+
+    .cta-section p {
+        font-size: 1.1rem;
+        padding: 0 20px;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dance-style-card {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Задержка анимации для карточек */
+.dance-style-card:nth-child(1) { animation-delay: 0.1s; }
+.dance-style-card:nth-child(2) { animation-delay: 0.2s; }
+.dance-style-card:nth-child(3) { animation-delay: 0.3s; }
+.dance-style-card:nth-child(4) { animation-delay: 0.4s; }
+.dance-style-card:nth-child(5) { animation-delay: 0.5s; }
+.dance-style-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Эффект при наведении на иконку танца */
+.dance-icon {
+    transition: var(--transition);
+}
+
+.dance-style-card:hover .dance-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Стили для кнопки на странице О танцах */
+.cta-section .btn {
+    font-size: 1.3rem;
+    padding: 18px 40px;
+    margin-top: 1rem;
+}
+
+/* Декоративные элементы для секций */
+.dances-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 77, 141, 0.3),
+        transparent);
+}
 /* АВАТАР С БУКВОЙ - полные стили */
 .user-panel {
     position: absolute;

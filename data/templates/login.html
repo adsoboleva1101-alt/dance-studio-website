@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход - Танцевальная студия</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        /* Дополнительные стили для страницы входа */
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+
+        .register-link a {
+            color: #4a76a8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #d9534f;
+            background-color: #fdf7f7;
+            border: 1px solid #ebccd1;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #5cb85c;
+            background-color: #f9f9f9;
+            border: 1px solid #d6e9c6;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Вход</h1>
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if message %}
+        <div class="success">
+            <p>{{ message }}</p>
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" required
+                       value="{{ form_data.email if form_data else '' }}">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Пароль" required>
+            </div>
+            <button type="submit" class="btn">Войти</button>
+        </form>
+
+        <div class="registration-link">
+            Нет аккаунта? <a href="{{ url_for('registration') }}">Зарегистрироваться</a>
+        </div>
+    </div>
+</body>
+</html>
