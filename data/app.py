@@ -1,12 +1,13 @@
-from flask import Flask, request, render_template, redirect, session, jsonify
+from flask import Flask, request, render_template, redirect, session, jsonify, g, url_for
 import json
-import datetime
+from datetime import datetime
 import os
 import sqlite3
 import requests
 
 app = Flask(__name__)
 app.secret_key = 'dance-studio-secret-key'
+DATABASE = 'dance_studio.db'
 
 # Данные тренеров
 COACHES_DATA = [
@@ -255,6 +256,84 @@ def save_json_file(filename, data):
         return False
 
 
+def get_db():
+    """Получить соединение с базой данных"""
+    if 'db' not in g:
+        print(f"Подключаемся к базе: {DATABASE}")
+        g.db = sqlite3.connect(DATABASE)
+        g.db.row_factory = sqlite3.Row
+
+        # Проверяем какие таблицы есть
+        cursor = g.db.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = cursor.fetchall()
+        print(f"Таблицы в базе: {[t[0] for t in tables]}")
+
+    return g.db
+
+
+def close_db(e=None):
+    """Закрыть соединение с базой данных"""
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
+
+
+def init_db():
+    """Инициализировать базу данных - создает таблицу если её нет"""
+    with app.app_context():
+        db = get_db()
+
+        try:
+            cursor = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")
+            table_exists = cursor.fetchone()
+
+            if not table_exists:
+                print("Создаем таблицу users...")
+
+                db.execute('''
+                    CREATE TABLE users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        first_name TEXT NOT NULL,
+                        last_name TEXT NOT NULL,
+                        email TEXT UNIQUE NOT NULL,
+                        password TEXT NOT NULL,
+                        age INTEGER NOT NULL,
+                        phone TEXT,
+                        registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        last_login TIMESTAMP,
+                        is_active BOOLEAN DEFAULT 1
+                    )
+                ''')
+                db.commit()
+                print("✓ Таблица users успешно создана")
+            else:
+                print("✓ Таблица users уже существует")
+
+                # ДОБАВЛЕНО: Проверяем сколько записей
+                cursor = db.execute("SELECT COUNT(*) FROM users")
+                count = cursor.fetchone()[0]
+                print(f"✓ Записей в таблице users: {count}")
+
+                # Проверяем есть ли столбец phone
+                cursor = db.execute("PRAGMA table_info(users)")
+                columns = [col[1] for col in cursor.fetchall()]
+
+                if 'phone' not in columns:
+                    print("Добавляем столбец phone...")
+                    db.execute('ALTER TABLE users ADD COLUMN phone TEXT')
+                    db.commit()
+                    print("Столбец phone добавлен")
+
+        except sqlite3.Error as e:
+            print(f"Ошибка при инициализации базы данных: {e}")
+            raise
+
+
+app.teardown_appcontext(close_db)
+init_db()
+
+
 @app.route('/')
 def index():
     """Главная страница"""
@@ -263,19 +342,27 @@ def index():
 
 @app.route('/profile')
 def profile():
-    """Личный кабинет"""
+    """Личный кабинет - ИСПРАВЛЕННЫЙ ВАРИАНТ"""
     user_id = session.get('user_id')
 
     if not user_id:
         return redirect('/login')
 
-    users = load_json_file(USERS_FILE)
+    try:
+        db = get_db()
 
-    for user in users:
-        if user['id'] == user_id:
-            return render_template('profile.html', user=user)
+        cursor = db.execute('SELECT * FROM users WHERE id = ?', (user_id,))
+        user = cursor.fetchone()
 
-    return redirect('/login')
+        if user:
+            user_dict = dict(user)
+            return render_template('profile.html', user=user_dict)
+        else:
+            return redirect('/login')
+
+    except sqlite3.Error as e:
+        print(f"Ошибка при загрузке профиля: {e}")
+        return redirect('/login')
 
 
 @app.route('/test')
@@ -298,7 +385,6 @@ def process_test():
         elif age == "B":
             result = {"style": "Kids 7-9", "age": "7-9 лет", "teacher": "Даша Шорникова"}
         else:
-            # Для взрослых определяем стиль по ответам
             style_map = {
                 "A": "Choreo",
                 "B": "High Heels",
@@ -313,7 +399,6 @@ def process_test():
             else:
                 style = "Choreo"
 
-            # Проверка возрастных ограничений
             if (style in ["High Heels", "Girly Choreo"]) and age in ["C", "D"]:
                 style = "Choreo"
 
@@ -340,8 +425,7 @@ def process_test():
                 "teacher": teachers.get(style, "Даша Шорникова")
             }
 
-        # Сохранение результата
-        result["date"] = datetime.datetime.now().isoformat()
+        result["date"] = datetime.now().isoformat()
         results = load_json_file(RESULTS_FILE)
         results.append(result)
         save_json_file(RESULTS_FILE, results)
@@ -380,64 +464,116 @@ def prices():
     return render_template('prices.html', prices_data=PRICES_DATA, user_name=user_name)
 
 
-# Страница входа
+@app.route('/check_db')
+def check_database():
+    """Проверка состояния базы данных"""
+    try:
+        db = get_db()
+        cursor = db.cursor()
+
+        result = "<h1>Проверка базы данных</h1>"
+        result += f"<p>Путь к файлу: {os.path.abspath(DATABASE)}</p>"
+        result += f"<p>Файл существует: {os.path.exists(DATABASE)}</p>"
+
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = cursor.fetchall()
+
+        result += "<h2>Таблицы в базе:</h2><ul>"
+        for table in tables:
+            result += f"<li>{table[0]}</li>"
+        result += "</ul>"
+
+        if any('users' in t for t in tables):
+            cursor.execute("SELECT COUNT(*) FROM users")
+            count = cursor.fetchone()[0]
+            result += f"<p>Записей в таблице users: {count}</p>"
+
+            if count > 0:
+                cursor.execute("SELECT * FROM users ORDER BY id DESC")
+                users = cursor.fetchall()
+
+                result += "<h2>Зарегистрированные пользователи:</h2>"
+                result += "<table border='1' style='border-collapse: collapse;'>"
+                result += "<tr><th>ID</th><th>Имя</th><th>Email</th><th>Телефон</th><th>Возраст</th></tr>"
+
+                for user in users:
+                    result += f"<tr><td>{user[0]}</td><td>{user[1]} {user[2]}</td><td>{user[3]}</td><td>{user[6]}</td><td>{user[5]}</td></tr>"
+
+                result += "</table>"
+
+        return result
+
+    except Exception as e:
+        return f"<h1>Ошибка</h1><p>{str(e)}</p>"
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Страница входа в систему"""
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
 
-        users = load_json_file(USERS_FILE)
+        try:
+            db = get_db()
 
-        # Проверяем есть ли пользователь с таким email
-        user = next((u for u in users if u.get('email') == email), None)
+            # Ищем пользователя
+            cursor = db.execute('SELECT * FROM users WHERE email = ?', (email,))
+            user = cursor.fetchone()
 
-        if user:
-            # Проверка пароля (если в данных есть поле password)
-            # В вашем текущем формате данных нет пароля, поэтому пока пропускаем проверку
-            # В будущем можно добавить:
-            # if user.get('password') == password:
-            #     return redirect('/dashboard')  # или другую защищенную страницу
+            if user:
+                if user['password'] == password:
+                    # Обновляем last_login
+                    db.execute('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?', (user['id'],))
+                    db.commit()
 
-            # Пока просто перенаправляем на главную
-            return redirect('/')
-        else:
+                    # ДОБАВЛЕНО: Сохраняем в сессию
+                    session['user_id'] = user['id']
+                    session['user_name'] = user['first_name']
+                    session['user_email'] = user['email']
+
+                    print(f"Пользователь {email} вошел, ID: {user['id']}")
+                    return redirect('/')
+                else:
+                    return render_template('login.html',
+                                           error="Неверный пароль",
+                                           form_data={'email': email})
+            else:
+                return render_template('login.html',
+                                       error="Пользователь с таким email не найден",
+                                       form_data={'email': email})
+        except sqlite3.Error as e:
             return render_template('login.html',
-                                   error="Пользователь с таким email не найден",
+                                   error=f"Ошибка базы данных: {str(e)}",
                                    form_data={'email': email})
 
-    # Если GET запрос, показываем форму
     message = request.args.get('message')
     return render_template('login.html', message=message)
 
 
-# Страница регистрации
+# Страница регистрации - оставляем без изменений (уже работает с SQLite)
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
-    """Страница регистрации"""
     if request.method == 'POST':
-        # Получаем данные из формы
-        name = request.form.get('name')
-        surname = request.form.get('surname')
+        first_name = request.form.get('name')
+        last_name = request.form.get('surname')
         email = request.form.get('email')
         password = request.form.get('password')
         phone = request.form.get('phone')
         age = request.form.get('age')
 
-        # Проверка обязательных полей
-        if not all([name, surname, email, password, phone, age]):
+        print(f"Попытка регистрации: {first_name} {last_name}, email: {email}, phone: {phone}, age: {age}")
+
+        # Валидация
+        if not all([first_name, last_name, email, password, phone, age]):
             return render_template('registration.html',
                                    error="Все поля обязательны для заполнения",
                                    form_data=request.form)
 
-        # Проверка формата email (базовая)
         if '@' not in email or '.' not in email:
             return render_template('registration.html',
                                    error="Неверный формат email",
                                    form_data=request.form)
 
-        # Проверка возраста
         try:
             age_int = int(age)
             if age_int < 0 or age_int > 150:
@@ -449,38 +585,46 @@ def registration():
                                    error="Возраст должен быть числом",
                                    form_data=request.form)
 
-        # Подготовка данных пользователя
-        user_data = {
-            'id': f"user_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}",
-            'name': name,
-            'surname': surname,
-            'email': email,
-            'password': password,
-            'phone': phone,
-            'age': age_int,
-            'registration_date': datetime.datetime.now().isoformat(),
-            'status': 'active'
-        }
+        try:
+            db = get_db()
 
-        users = load_json_file(USERS_FILE)
+            cursor = db.execute('SELECT id FROM users WHERE email = ?', (email,))
+            if cursor.fetchone():
+                return render_template('registration.html',
+                                       error="Пользователь с таким email уже существует",
+                                       form_data=request.form)
 
-        # Проверка уникальности email
-        if any(user.get('email') == email for user in users):
+            cursor = db.execute(
+                '''INSERT INTO users (first_name, last_name, email, password, age, phone) 
+                   VALUES (?, ?, ?, ?, ?, ?)''',
+                (first_name, last_name, email, password, age_int, phone)
+            )
+            db.commit()
+
+            user_id = cursor.lastrowid
+            print(f"✓ Пользователь зарегистрирован! ID: {user_id}")
+
+            return redirect('/login?message=Регистрация успешна! Теперь войдите в систему')
+
+        except sqlite3.IntegrityError as e:
+            print(f"Ошибка целостности: {e}")
             return render_template('registration.html',
                                    error="Пользователь с таким email уже существует",
                                    form_data=request.form)
-
-        # Добавление пользователя
-        users.append(user_data)
-        if save_json_file(USERS_FILE, users):
-            # Перенаправляем на страницу входа с сообщением об успехе
-            return redirect('/login?message=Регистрация успешна! Теперь войдите в систему')
-        else:
+        except sqlite3.Error as e:
+            print(f"Ошибка SQLite: {e}")
             return render_template('registration.html',
-                                   error="Ошибка при сохранении данных",
+                                   error=f"Ошибка базы данных: {str(e)}",
                                    form_data=request.form)
 
     return render_template('registration.html')
+
+
+# ДОБАВЛЕНО: Выход из системы
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 if __name__ == '__main__':
@@ -491,4 +635,5 @@ if __name__ == '__main__':
 
     print("Запуск сайта танцевальной студии...")
     print("Откройте в браузере: http://localhost:5000")
+    print("Проверка БД: http://localhost:5000/check_db")
     app.run(debug=True, host='0.0.0.0', port=5000)
