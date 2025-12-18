@@ -4,11 +4,38 @@
     <title>Расписание - Танцевальная студия</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href = "/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            padding-top: 80px !important;
+        }
+        .container {
+            padding-top: 20px;
+        }
+        .schedule-container {
+            margin-top: 80px !important;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Панель пользователя -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                Танцевальная студия
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/coaches">Тренеры</a></li>
+                    <li><a href="/prices">Цены</a></li>
+                    <li><a href="/dances">О танцах</a></li>
+                    <li><a href="/login" class="btn-login">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container schedule-container">
         {% if user_name %}
         <div class="user-panel">
             <div class="user-info">
@@ -21,24 +48,12 @@
         </div>
         {% endif %}
 
-        <!-- Навигация -->
-        <nav>
-            <a href="/">Главная</a>
-            {% if not user_name %}
-                <a href="/registration">Регистрация</a>
-                <a href="/login">Войти</a>
-            {% endif %}
-            <a href="/prices">Цены</a>
-            <a href="/coaches">Тренера</a>
-        </nav>
-
         <h1>Расписание занятий</h1>
 
-        <!-- Вывод всех категорий расписания -->
         {% for category, items in schedule_data.items() %}
         <h2>{{ category.upper().replace('_', ' ') }}</h2>
 
-        <table>
+        <table class="schedule-table">
             <thead>
                 <tr>
                     <th>Тренер/Команда</th>
@@ -70,7 +85,6 @@
         </table>
         {% endfor %}
 
-        <!-- Дополнительная информация -->
         <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
             <h3>Важная информация:</h3>
             <ul style="margin-top: 1rem;">
@@ -81,5 +95,38 @@
             </ul>
         </div>
     </div>
+
+    <div style="height: 60px;"></div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Танцевальная студия</h3>
+                    <p>Раскройте свой танцевальный потенциал вместе с нами!</p>
+                    <p>Мы обучаем современным направлениям танцев для всех уровней подготовки.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>📧 Email: info@dance-studio.ru</p>
+                    <p>📞 Телефон: +7 (999) 123-45-67</p>
+                    <p>📍 Адрес: Москва, ул. Танцевальная, 15</p>
+                    <p>🕐 Часы работы: Пн-Вс 9:00-22:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <p><a href="/">Главная</a></p>
+                    <p><a href="#styles">Стили танцев</a></p>
+                    <p><a href="#schedule">Расписание</a></p>
+                    <p><a href="/coaches">Наши тренеры</a></p>
+                    <p><a href="/prices">Стоимость занятий</a></p>
+                    <p><a href="/registration">Регистрация</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Танцевальная студия. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

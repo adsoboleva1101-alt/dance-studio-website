@@ -263,7 +263,6 @@ def get_db():
         g.db = sqlite3.connect(DATABASE)
         g.db.row_factory = sqlite3.Row
 
-        # Проверяем какие таблицы есть
         cursor = g.db.cursor()
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
         tables = cursor.fetchall()
@@ -310,12 +309,9 @@ def init_db():
             else:
                 print("✓ Таблица users уже существует")
 
-                # ДОБАВЛЕНО: Проверяем сколько записей
                 cursor = db.execute("SELECT COUNT(*) FROM users")
                 count = cursor.fetchone()[0]
                 print(f"✓ Записей в таблице users: {count}")
-
-                # Проверяем есть ли столбец phone
                 cursor = db.execute("PRAGMA table_info(users)")
                 columns = [col[1] for col in cursor.fetchall()]
 
@@ -550,7 +546,7 @@ def login():
     return render_template('login.html', message=message)
 
 
-# Страница регистрации - оставляем без изменений (уже работает с SQLite)
+# Страница регистрации
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     if request.method == 'POST':
@@ -620,7 +616,6 @@ def registration():
     return render_template('registration.html')
 
 
-# ДОБАВЛЕНО: Выход из системы
 @app.route('/logout')
 def logout():
     session.clear()

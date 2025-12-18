@@ -572,6 +572,365 @@ td {
 }
 
 /* ===== СТРАНИЦА "О ТАНЦАХ" ===== */
+/* ===== ФИЛЬТРАЦИЯ СТИЛЕЙ ===== */
+.filter-section {
+    padding: 4rem 0 2rem;
+    background: var(--bg-light);
+    text-align: center;
+}
+
+.filter-section h2 {
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.filter-btn {
+    padding: 0.8rem 1.8rem;
+    background: var(--bg-white);
+    border: 2px solid rgba(255, 128, 171, 0.2);
+    border-radius: 50px;
+    color: var(--text-medium);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 77, 141, 0.05);
+    border-color: var(--pink-medium);
+    color: var(--pink-bright);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--gradient-mix);
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(255, 77, 141, 0.25);
+}
+
+/* ===== ЗАГРУЗКА ===== */
+.loading {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-light);
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 128, 171, 0.1);
+    border-top: 5px solid var(--pink-bright);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== КАТЕГОРИИ НА КАРТОЧКАХ ===== */
+.category-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 0.4rem 1rem;
+    background: rgba(79, 195, 247, 0.15);
+    color: var(--blue-bright);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(79, 195, 247, 0.3);
+    z-index: 2;
+}
+
+/* Разные цвета для категорий */
+.dance-style-card[data-category="street"] .category-tag {
+    background: rgba(255, 193, 7, 0.15);
+    color: #FF9800;
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+.dance-style-card[data-category="female"] .category-tag {
+    background: rgba(255, 77, 141, 0.15);
+    color: var(--pink-bright);
+    border-color: rgba(255, 77, 141, 0.3);
+}
+
+.dance-style-card[data-category="contemporary"] .category-tag {
+    background: rgba(156, 39, 176, 0.15);
+    color: #9C27B0;
+    border-color: rgba(156, 39, 176, 0.3);
+}
+
+/* ===== ССЫЛКА "УЗНАТЬ БОЛЬШЕ" ===== */
+.details-link {
+    display: inline-block;
+    color: var(--blue-bright);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background: rgba(79, 195, 247, 0.1);
+    border-radius: 50px;
+    transition: var(--transition);
+    text-align: center;
+    width: 100%;
+    border: 1px solid rgba(79, 195, 247, 0.2);
+}
+
+.details-link:hover {
+    background: rgba(79, 195, 247, 0.2);
+    color: var(--blue-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 195, 247, 0.15);
+    text-decoration: none;
+}
+
+/* ===== РАСПИСАНИЕ ===== */
+.schedule-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg,
+        rgba(255, 235, 243, 0.3) 0%,
+        rgba(225, 245, 254, 0.3) 100%);
+}
+
+.schedule-section .section-title {
+    margin-bottom: 3rem;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.schedule-table th {
+    background: var(--gradient-mix);
+    color: var(--white);
+    padding: 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    border: none;
+}
+
+.schedule-table td {
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(255, 128, 171, 0.1);
+    color: var(--text-medium);
+}
+
+.schedule-table tr:last-child td {
+    border-bottom: none;
+}
+
+.schedule-table tr:hover {
+    background: rgba(255, 235, 243, 0.2);
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ===== */
+@media (max-width: 768px) {
+    .filter-buttons {
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .schedule-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .details-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filter-btn {
+        width: 80%;
+        margin-bottom: 0.5rem;
+    }
+
+    .dance-styles {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 15px;
+    }
+
+    .schedule-section {
+        padding: 3rem 0;
+    }
+}
+
+/* ===== АНИМАЦИИ ДЛЯ КАРТОЧЕК ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Задержка анимации для карточек при фильтрации */
+.dance-style-card {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* ===== СТИЛИ ДЛЯ ОПИСАНИЯ ===== */
+.card-content {
+    text-align: left;
+}
+
+.dance-style-card h3 {
+    text-align: left;
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.dance-origin {
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 1.2rem;
+    padding-left: 5px;
+    border-left: 3px solid var(--pink-light);
+}
+
+.dance-style-card p {
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+/* ===== УЛУЧШЕНИЯ ДЛЯ ГЕРОЙ-СЕКЦИИ ===== */
+.dances-hero .container {
+    max-width: 800px;
+}
+
+.dances-hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.dances-hero p {
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+/* ===== ПРОМЕЖУТОЧНЫЕ СЕКЦИИ ===== */
+.schedule-section + .cta-section {
+    margin-top: 0;
+    padding-top: 6rem;
+}
+
+/* ===== ОБЩИЕ УЛУЧШЕНИЯ ===== */
+#styles {
+    padding-top: 3rem;
+    min-height: 60vh;
+}
+
+#schedule {
+    scroll-margin-top: 100px;
+}
+
+/* ===== ИНДИКАТОР УРОВНЯ В ТАБЛИЦЕ ===== */
+.schedule-table .difficulty {
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ===== ПОДВАЛ ДЛЯ СТРАНИЦЫ СТИЛЕЙ ===== */
+footer {
+    margin-top: 0;
+}
+
+/* ===== КНОПКА ЗАПИСИ ===== */
+.cta-section .btn {
+    font-size: 1.2rem;
+    padding: 1.2rem 2.5rem;
+    background: var(--gradient-mix);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 8px 25px rgba(255, 77, 141, 0.25);
+}
+
+.cta-section .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 77, 141, 0.35);
+}
+
+/* ===== ОТСТУПЫ ДЛЯ ОСНОВНОГО КОНТЕНТА ===== */
+.dances-main > section {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* ===== СКРОЛЛБАР ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pink-medium);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pink-bright);
+}
 
 /* Герой-секция для страницы О танцах */
 .dances-hero {
