@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, session, jsonify, g
+from flask import Flask, request, render_template, redirect, session, jsonify
 import json
 from datetime import datetime
 import os
