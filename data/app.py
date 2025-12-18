@@ -360,6 +360,8 @@ def profile():
         return redirect('/login')
 
 
+# В вашем app.py добавьте/обновите следующие маршруты:
+
 @app.route('/test')
 def test():
     """Страница теста стиля"""
@@ -367,7 +369,7 @@ def test():
 
 @app.route('/api/test', methods=['POST'])
 def process_test():
-    """Обработка теста стиля"""
+    """Обработка теста стиля - РАСШИРЕННАЯ ВЕРСИЯ С 10 ВОПРОСАМИ"""
     try:
         data = request.json
         age_choice = data.get('age')
@@ -495,6 +497,23 @@ def process_test():
         if user_id:
             try:
                 db = get_db()
+                # Сначала проверяем, есть ли таблица test_results
+                cursor = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='test_results'")
+                if not cursor.fetchone():
+                    # Создаем таблицу если ее нет
+                    db.execute('''
+                        CREATE TABLE test_results (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            user_id INTEGER,
+                            age_group TEXT,
+                            dance_style TEXT,
+                            recommended_trainer TEXT,
+                            test_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            FOREIGN KEY (user_id) REFERENCES users (id)
+                        )
+                    ''')
+                    db.commit()
+                
                 db.execute('''
                     INSERT INTO test_results (user_id, age_group, dance_style, recommended_trainer)
                     VALUES (?, ?, ?, ?)
@@ -528,6 +547,129 @@ def dances():
     """ Функция для отображения страницы "О танцах" """
     return render_template('dances.html')
 
+@app.route('/api/calculate_result', methods=['POST'])
+def calculate_result():
+    """Рассчитать результат теста на основе ответов (для AJAX)"""
+    try:
+        data = request.json
+        age_choice = data.get('age')
+        answers = data.get('answers', [])
+        
+        # Используем ту же логику, что и в process_test
+        if age_choice == "A":
+            result = {
+                "style": "Baby 4-5",
+                "age": "4-5 лет",
+                "teacher": "Соня Баловнева",
+                "description": "Идеально для малышей!"
+            }
+        elif age_choice == "B":
+            result = {
+                "style": "Kids 7-9",
+                "age": "7-9 лет",
+                "teacher": "Даша Шорникова",
+                "description": "Танцы для детей!"
+            }
+        else:
+            question_weights = {
+                2: {"А": {"Choreo": 2}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 3}},
+                3: {"А": {"Choreo": 3}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 2}},
+                4: {"А": {"Choreo": 2}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 3}},
+                5: {"А": {"Choreo": 1}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 3}},
+                6: {"А": {"Choreo": 2}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 3}},
+                7: {"А": {"Choreo": 1}, "Б": {"High Heels": 1}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 1}, "Е": {"Jazz Funk": 2}},
+                8: {"А": {"Choreo": 3}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 3}},
+                9: {"А": {"Choreo": 1}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 1}},
+                10: {"А": {"Choreo": 1}, "Б": {"High Heels": 1}, "В": {"Hip-hop": 2},
+                     "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 1}, "Е": {"Jazz Funk": 2}}
+            }
+
+            style_scores = {"Choreo": 0, "High Heels": 0, "Hip-hop": 0,
+                           "Girly hip-hop": 0, "Girly Choreo": 0, "Jazz Funk": 0, "Teens 10-13": 0}
+
+            for i, answer in enumerate(answers):
+                question_num = i + 2
+                if question_num in question_weights and answer in question_weights[question_num]:
+                    for style, weight in question_weights[question_num][answer].items():
+                        if style in style_scores:
+                            style_scores[style] += weight
+
+            recommended_style = max(style_scores, key=style_scores.get)
+
+            age_mapping = {
+                "C": {"text": "10-13 лет", "numeric": 12},
+                "D": {"text": "14-15 лет", "numeric": 14},
+                "E": {"text": "16-17 лет", "numeric": 16},
+                "F": {"text": "18+ лет", "numeric": 18}
+            }
+
+            age_info = age_mapping.get(age_choice, {"text": "18+ лет", "numeric": 18})
+            user_age = age_info["numeric"]
+
+            min_age_requirements = {
+                "Choreo": 14, "Hip-hop": 14, "Girly hip-hop": 14,
+                "Jazz Funk": 12, "High Heels": 16, "Girly Choreo": 16
+            }
+
+            teachers_by_style = {
+                "Choreo": "Даша Шорникова",
+                "High Heels": "Катя Бударина, Настя Семенова, Ангелина Сумина, Ксения Лунева",
+                "Hip-hop": "Катя Четина",
+                "Girly hip-hop": "Катя Четина",
+                "Girly Choreo": "Катя Бударина, Ксения Лунева",
+                "Jazz Funk": "Даша Мигрова",
+                "Teens 10-13": "Настя Кюннап, Соня Баловнева"
+            }
+
+            style_descriptions = {
+                "Choreo": "Универсальный стиль! Современная хореография.",
+                "High Heels": "Чувственные танцы на каблуках!",
+                "Hip-hop": "Энергия улиц! Свободный стиль.",
+                "Girly hip-hop": "Легкий хип-хоп! Женственный взгляд.",
+                "Girly Choreo": "Женственная хореография!",
+                "Jazz Funk": "Эмоциональный танец!",
+                "Teens 10-13": "Для подростков! Самовыражение."
+            }
+
+            final_style = recommended_style
+            final_teacher = teachers_by_style.get(recommended_style, "")
+
+            if recommended_style in min_age_requirements:
+                min_age = min_age_requirements[recommended_style]
+                if user_age < min_age:
+                    if age_choice == "C":
+                        if recommended_style == "Jazz Funk" and user_age >= 12:
+                            pass
+                        else:
+                            final_style = "Teens 10-13"
+                            final_teacher = teachers_by_style["Teens 10-13"]
+                    elif age_choice == "D":
+                        if recommended_style in ["High Heels", "Girly Choreo"]:
+                            final_style = "Choreo"
+                            final_teacher = teachers_by_style["Choreo"]
+
+            result = {
+                "style": final_style,
+                "age": age_info["text"],
+                "teacher": final_teacher,
+                "description": style_descriptions.get(final_style, "Идеальный стиль!"),
+                "questions_count": 10,
+                "date": datetime.now().isoformat()
+            }
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        print(f"Ошибка в calculate_result: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/prices')
 def prices():
