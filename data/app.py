@@ -1,9 +1,8 @@
-from flask import Flask, request, render_template, redirect, session, jsonify, g, url_for
+from flask import Flask, request, render_template, redirect, session, jsonify, g
 import json
 from datetime import datetime
 import os
 import sqlite3
-import requests
 
 app = Flask(__name__)
 app.secret_key = 'dance-studio-secret-key'
@@ -366,72 +365,149 @@ def test():
     """Страница теста стиля"""
     return render_template('test.html')
 
-
 @app.route('/api/test', methods=['POST'])
 def process_test():
-    """Обработка теста стиля"""
+    """Обработка теста стиля - РАСШИРЕННАЯ ВЕРСИЯ С 10 ВОПРОСАМИ"""
     try:
         data = request.json
-        age = data.get('age')
+        age_choice = data.get('age')
         answers = data.get('answers', [])
+        user_id = session.get('user_id')
 
-        # Определение стиля на основе возраста и ответов
-        if age == "A":
-            result = {"style": "Baby 4-5", "age": "4-5 лет", "teacher": "Соня Баловнева"}
-        elif age == "B":
-            result = {"style": "Kids 7-9", "age": "7-9 лет", "teacher": "Даша Шорникова"}
+        # 1. Если возраст 4-5 или 7-9 лет
+        if age_choice == "A":
+            result = {
+                "style": "Baby 4-5",
+                "age": "4-5 лет",
+                "teacher": "Соня Баловнева",
+                "description": "Идеально для малышей!"
+            }
+        elif age_choice == "B":
+            result = {
+                "style": "Kids 7-9",
+                "age": "7-9 лет",
+                "teacher": "Даша Шорникова",
+                "description": "Танцы для детей!"
+            }
         else:
-            style_map = {
-                "A": "Choreo",
-                "B": "High Heels",
-                "C": "Hip-hop",
-                "D": "Girly hip-hop",
-                "E": "Girly Choreo",
-                "F": "Jazz Funk"
+            # 2. Для возраста 10+ лет анализируем ответы
+            question_weights = {
+                2: {"А": {"Choreo": 2}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 3}},
+                3: {"А": {"Choreo": 3}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 2}},
+                4: {"А": {"Choreo": 2}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 3}},
+                5: {"А": {"Choreo": 1}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 3}},
+                6: {"А": {"Choreo": 2}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 3},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 3}},
+                7: {"А": {"Choreo": 1}, "Б": {"High Heels": 1}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 1}, "Е": {"Jazz Funk": 2}},
+                8: {"А": {"Choreo": 3}, "Б": {"High Heels": 3}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 3}, "Е": {"Jazz Funk": 3}},
+                9: {"А": {"Choreo": 1}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 2},
+                    "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 1}},
+                10: {"А": {"Choreo": 1}, "Б": {"High Heels": 1}, "В": {"Hip-hop": 2},
+                     "Г": {"Girly hip-hop": 1}, "Д": {"Girly Choreo": 1}, "Е": {"Jazz Funk": 2}}
             }
 
-            if answers:
-                style = style_map.get(answers[0], "Choreo")
-            else:
-                style = "Choreo"
+            style_scores = {"Choreo": 0, "High Heels": 0, "Hip-hop": 0,
+                           "Girly hip-hop": 0, "Girly Choreo": 0, "Jazz Funk": 0, "Teens 10-13": 0}
 
-            if (style in ["High Heels", "Girly Choreo"]) and age in ["C", "D"]:
-                style = "Choreo"
+            for i, answer in enumerate(answers):
+                question_num = i + 2
+                if question_num in question_weights and answer in question_weights[question_num]:
+                    for style, weight in question_weights[question_num][answer].items():
+                        if style in style_scores:
+                            style_scores[style] += weight
 
-            # Определение тренера
-            teachers = {
+            recommended_style = max(style_scores, key=style_scores.get)
+
+            # 3. Проверяем возрастные ограничения
+            age_mapping = {
+                "C": {"text": "10-13 лет", "numeric": 12},
+                "D": {"text": "14-15 лет", "numeric": 14},
+                "E": {"text": "16-17 лет", "numeric": 16},
+                "F": {"text": "18+ лет", "numeric": 18}
+            }
+
+            age_info = age_mapping.get(age_choice, {"text": "18+ лет", "numeric": 18})
+            user_age = age_info["numeric"]
+
+            min_age_requirements = {
+                "Choreo": 14, "Hip-hop": 14, "Girly hip-hop": 14,
+                "Jazz Funk": 12, "High Heels": 16, "Girly Choreo": 16
+            }
+
+            teachers_by_style = {
                 "Choreo": "Даша Шорникова",
                 "High Heels": "Катя Бударина, Настя Семенова, Ангелина Сумина, Ксения Лунева",
                 "Hip-hop": "Катя Четина",
                 "Girly hip-hop": "Катя Четина",
                 "Girly Choreo": "Катя Бударина, Ксения Лунева",
-                "Jazz Funk": "Даша Мигрова"
+                "Jazz Funk": "Даша Мигрова",
+                "Teens 10-13": "Настя Кюннап, Соня Баловнева"
             }
 
-            age_texts = {
-                "C": "10-13 лет",
-                "D": "14-15 лет",
-                "E": "16-17 лет",
-                "F": "18+ лет"
+            style_descriptions = {
+                "Choreo": "Универсальный стиль! Современная хореография.",
+                "High Heels": "Чувственные танцы на каблуках!",
+                "Hip-hop": "Энергия улиц! Свободный стиль.",
+                "Girly hip-hop": "Легкий хип-хоп! Женственный взгляд.",
+                "Girly Choreo": "Женственная хореография!",
+                "Jazz Funk": "Эмоциональный танец!",
+                "Teens 10-13": "Для подростков! Самовыражение."
             }
+
+            final_style = recommended_style
+            final_teacher = teachers_by_style.get(recommended_style, "")
+
+            # Проверка возрастных ограничений
+            if recommended_style in min_age_requirements:
+                min_age = min_age_requirements[recommended_style]
+                if user_age < min_age:
+                    if age_choice == "C":
+                        if recommended_style == "Jazz Funk" and user_age >= 12:
+                            pass
+                        else:
+                            final_style = "Teens 10-13"
+                            final_teacher = teachers_by_style["Teens 10-13"]
+                    elif age_choice == "D":
+                        if recommended_style in ["High Heels", "Girly Choreo"]:
+                            final_style = "Choreo"
+                            final_teacher = teachers_by_style["Choreo"]
 
             result = {
-                "style": style,
-                "age": age_texts.get(age, "18+ лет"),
-                "teacher": teachers.get(style, "Даша Шорникова")
+                "style": final_style,
+                "age": age_info["text"],
+                "teacher": final_teacher,
+                "description": style_descriptions.get(final_style, "Идеальный стиль!"),
+                "questions_count": 10,
+                "date": datetime.now().isoformat()
             }
 
-        result["date"] = datetime.now().isoformat()
+        # Сохраняем результат
         results = load_json_file(RESULTS_FILE)
         results.append(result)
         save_json_file(RESULTS_FILE, results)
+
+        if user_id:
+            try:
+                db = get_db()
+                db.execute('''
+                    INSERT INTO test_results (user_id, age_group, dance_style, recommended_trainer)
+                    VALUES (?, ?, ?, ?)
+                ''', (user_id, result["age"], result["style"], result["teacher"]))
+                db.commit()
+            except Exception as e:
+                print(f"Ошибка сохранения в БД: {e}")
 
         return jsonify(result)
 
     except Exception as e:
         print(f"Ошибка в process_test: {e}")
-        return jsonify({"error": "Произошла ошибка"}), 500
-
+        return jsonify({"error": "Ошибка обработки теста"}), 500
 
 @app.route('/schedule')
 def schedule():
@@ -628,7 +704,6 @@ if __name__ == '__main__':
     if not os.path.exists(RESULTS_FILE):
         save_json_file(RESULTS_FILE, [])
 
-    print("Запуск сайта танцевальной студии...")
     print("Откройте в браузере: http://localhost:5000")
     print("Проверка БД: http://localhost:5000/check_db")
     app.run(debug=True, host='0.0.0.0', port=5000)
