@@ -172,13 +172,12 @@
             }
 
             if (currentQuestion === 1) {
-                answers[0] = selectedOption.dataset.value; // Возраст
+                answers[0] = selectedOption.dataset.value;
             } else {
                 answers[currentQuestion - 1] = selectedOption.dataset.value;
             }
 
             if (currentQuestion === totalQuestions) {
-                // Показываем результат (пока заглушка)
                 showResult();
             } else {
                 currentQuestion++;
@@ -196,6 +195,7 @@
         function showResult() {
             document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
             document.getElementById('result').style.display = 'block';
+
             let resultHTML = `
                 <h3>Рекомендуемый стиль: Гёрли хип-хоп (Girly Hip-Hop)</h3>
                 <p>На основе ваших ответов, мы рекомендуем вам начать с этого направления:</p>
@@ -211,7 +211,7 @@
                 </ul>
 
                 <div class="test-actions">
-                    <button onclick="window.location.href='#styles'">Посмотреть все стили</button>
+                    <button onclick="window.location.href='/dances'">Посмотреть все стили</button>
                     <button onclick="window.location.href='/'">На главную</button>
                 </div>
             `;
