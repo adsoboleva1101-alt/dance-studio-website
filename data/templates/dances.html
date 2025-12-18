@@ -13,9 +13,9 @@
             <nav>
                 <ul>
                     <li><a href="/">Главная</a></li>
+                    <li><a href="#styles">Стили</a></li>
                     <li><a href="#schedule">Расписание</a></li>
                     <li><a href="/coaches">Тренеры</a></li>
-                    <li><a href="/prices">Цены</a></li>
                     <li><a href="/registration" class="btn-login">Регистрация</a></li>
                 </ul>
             </nav>
@@ -72,10 +72,10 @@
                 </div>
                 <div class="footer-section">
                     <h3>Контакты</h3>
-                    <p>📧 Email: info@dance-studio.ru</p>
-                    <p>📞 Телефон: +7 (999) 123-45-67</p>
-                    <p>📍 Адрес: Москва, ул. Танцевальная, 15</p>
-                    <p>🕐 Часы работы: Пн-Вс 9:00-22:00</p>
+                    <p>Email: info@dance-studio.ru</p>
+                    <p>Телефон: +7 (999) 123-45-67</p>
+                    <p>Адрес: Москва, ул. Танцевальная, 15</p>
+                    <p>Часы работы: Пн-Вс 9:00-22:00</p>
                 </div>
                 <div class="footer-section">
                     <h3>Быстрые ссылки</h3>
@@ -94,12 +94,11 @@
     </footer>
 
     <script>
-        // Данные танцевальных стилей
         const danceStylesData = [
             {
                 id: 1,
                 name: "Хип-хоп (Hip-Hop)",
-                icon: "👯",
+                image: "/static/images/dances_style/hip-hop.jpg",
                 origin: "США, 1970-е",
                 description: "Уличный танец, часть хип-хоп культуры. Включает стили: breaking, locking, popping. Характеризуется энергичностью, акробатическими элементами и свободной импровизацией.",
                 difficulty: "medium",
@@ -111,7 +110,7 @@
             {
                 id: 2,
                 name: "Гёрли хип-хоп (Girly Hip-Hop)",
-                icon: "💃",
+                image: "/static/images/dances_style/girly hip-hop.jpg",
                 origin: "США, 2000-е",
                 description: "Женственное направление хип-хопа с плавными, волнообразными движениями. Сочетает хип-хоп основы с элементами джаз-фанка и вога. Идеально для развития пластики и женственности.",
                 difficulty: "medium",
@@ -123,7 +122,7 @@
             {
                 id: 3,
                 name: "Хай хилз (High Heels)",
-                icon: "👠",
+                image: "/static/images/dances_style/high heels.jpg",
                 origin: "США, 2010-е",
                 description: "Сексуальный и женственный стиль, исполняемый на высоких каблуках. Включает элементы джаз-фанка, вога и хип-хопа. Развивает уверенность в себе и грациозность.",
                 difficulty: "hard",
@@ -135,7 +134,7 @@
             {
                 id: 4,
                 name: "Хорео (Choreo)",
-                icon: "🎭",
+                image: "/static/images/dances_style/choreo.jpg",
                 origin: "США, 1990-е",
                 description: "Современная хореография, объединяющая различные стили. Акцент на чистоте линий, музыкальности и постановочных номерах. Развивает артистизм и сценическое присутствие.",
                 difficulty: "medium",
@@ -147,7 +146,7 @@
             {
                 id: 5,
                 name: "Джаз-фанк (Jazz Funk)",
-                icon: "🕴️",
+                image: "/static/images/dances_style/jazz funk.jpg",
                 origin: "США, 2000-е",
                 description: "Энергичный стиль, сочетающий джазовую технику с элементами хип-хопа. Отличается резкими движениями, изоляцией и актерской игрой. Развивает координацию и музыкальность.",
                 difficulty: "hard",
@@ -159,7 +158,7 @@
             {
                 id: 6,
                 name: "Гёрли хорео (Girly Choreo)",
-                icon: "💖",
+                image: "/static/images/dances_style/girly choreo.jpg",
                 origin: "2020-е",
                 description: "Женственное направление современной хореографии с элементами гёрли хип-хопа. Плавные, изящные движения с акцентом на женственность и выразительность.",
                 difficulty: "medium",
@@ -169,8 +168,6 @@
                 level: "easy"
             }
         ];
-
-        // DOM элементы
         let danceStylesContainer;
         let loadingElement;
         let filterButtons;
@@ -181,15 +178,12 @@
             loadingElement = document.getElementById('loading');
             filterButtons = document.querySelectorAll('.filter-btn');
 
-            // Загружаем данные
             loadDanceStyles();
 
-            // Добавляем обработчики для фильтров
             setupFilterButtons();
         });
 
         function loadDanceStyles() {
-            // Имитация загрузки с API
             setTimeout(() => {
                 currentStyles = danceStylesData;
                 displayDanceStyles(currentStyles);
@@ -203,10 +197,13 @@
             danceStylesContainer.innerHTML = styles.map(style => `
                 <div class="dance-style-card fade-in" data-category="${style.category}" data-level="${style.level}">
                     <div class="category-tag">${getCategoryName(style.category)}</div>
-                    <div class="dance-icon">${style.icon}</div>
+                    <div class="dance-image">
+                        <img src="${style.image}" alt="${style.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518310383802-640d2cc3a9f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+                        <div class="image-overlay"></div>
+                    </div>
                     <div class="card-content">
                         <h3>${style.name}</h3>
-                        <p class="dance-origin">🎭 Происхождение: ${style.origin}</p>
+                        <p class="dance-origin">Происхождение: ${style.origin}</p>
                         <p class="dance-description">${style.description}</p>
                         <a href="${style.details}" target="_blank" class="details-link" onclick="event.stopPropagation();">
                             Узнать больше о стиле
@@ -215,7 +212,7 @@
                             <span class="difficulty ${style.difficulty}">
                                 ${getDifficultyText(style.difficulty)}
                             </span>
-                            <span class="music-type">🎵 ${style.musicType}</span>
+                            <span class="music-type">${style.musicType}</span>
                         </div>
                     </div>
                 </div>
@@ -223,7 +220,6 @@
         }
 
         function filterStyles(category) {
-            // Обновляем активные кнопки
             filterButtons.forEach(btn => {
                 if (btn.textContent.includes(getCategoryName(category)) ||
                     (category === 'all' && btn.textContent === 'Все стили') ||

@@ -932,6 +932,104 @@ footer {
     background: var(--pink-bright);
 }
 
+/* ===== ПРОСТЫЕ СТИЛИ ДЛЯ ГОРИЗОНТАЛЬНЫХ ФОТО ===== */
+
+/* Контейнер для фотографий */
+.dance-image {
+    width: 100%;
+    height: 200px; /* Фиксированная высота для горизонтальных фото */
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dance-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Это важно для горизонтальных фото */
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Простой эффект при наведении */
+.dance-style-card:hover .dance-image img {
+    transform: scale(1.05);
+}
+
+/* Легкий оверлей */
+.image-overlay {
+    display: none; /* Убираем сложный оверлей */
+}
+
+/* Простая адаптивность */
+@media (max-width: 768px) {
+    .dance-image {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dance-image {
+        height: 160px;
+        border-radius: 8px;
+    }
+}
+
+/* Простая загрузка изображений */
+.dance-image img {
+    animation: simpleFadeIn 0.5s ease;
+}
+
+@keyframes simpleFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Простой эффект для категорий */
+.dance-style-card[data-category="street"] .dance-image {
+    border: 2px solid rgba(255, 193, 7, 0.3);
+}
+
+.dance-style-card[data-category="female"] .dance-image {
+    border: 2px solid rgba(255, 77, 141, 0.3);
+}
+
+.dance-style-card[data-category="contemporary"] .dance-image {
+    border: 2px solid rgba(156, 39, 176, 0.3);
+}
+
+/* Улучшаем внешний вид карточек с фото */
+.dance-style-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.dance-style-card .card-content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+/* Простая обводка при наведении */
+.dance-style-card:hover {
+    box-shadow: 0 10px 25px rgba(255, 77, 141, 0.15);
+}
+
+/* Заглушка для отсутствующих фото */
+.dance-image img:not([src]),
+.dance-image img[src=""],
+.dance-image img[src*="error"] {
+    background: linear-gradient(135deg, #ffebf3, #e1f5fe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
 /* Герой-секция для страницы О танцах */
 .dances-hero {
     background: linear-gradient(135deg,

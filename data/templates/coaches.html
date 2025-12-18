@@ -5,9 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "/static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            padding-top: 100px !important;
+        }
+        .container {
+            padding-top: 40px;
+        }
+        h1 {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                Танцевальная студия
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/coaches">Тренеры</a></li>
+                    <li><a href="/schedule">Расписание</a></li>
+                    <li><a href="/dances">О танцах</a></li>
+                    <li><a href="/login" class="btn-login">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <div class="container">
     {% if user_name %}
     <div class="user-panel">
@@ -27,17 +54,6 @@
         </div>
     </div>
     {% endif %}
-
-        <nav>
-            <a href="/">Главная</a>
-            {% if not user_name %}
-                <a href="/registration">Регистрация</a>
-                <a href="/login">Войти</a>
-            {% endif %}
-            <a href="/prices">Цены</a>
-            <a href="/schedule">Расписание</a>
-        </nav>
-
         <h1>Наши тренеры</h1>
 
         <div class="intro-text">
@@ -87,10 +103,10 @@
                 </div>
                 <div class="footer-section">
                     <h3>Контакты</h3>
-                    <p>📧 Email: info@dance-studio.ru</p>
-                    <p>📞 Телефон: +7 (999) 123-45-67</p>
-                    <p>📍 Адрес: Москва, ул. Танцевальная, 15</p>
-                    <p>🕐 Часы работы: Пн-Вс 9:00-22:00</p>
+                    <p>Email: info@dance-studio.ru</p>
+                    <p>Телефон: +7 (999) 123-45-67</p>
+                    <p>Адрес: Псков, Рижский 16</p>
+                    <p>Часы работы: Пн-Вс 9:00-22:00</p>
                 </div>
                 <div class="footer-section">
                     <h3>Быстрые ссылки</h3>
