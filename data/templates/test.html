@@ -4,187 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест стиля - 10 вопросов</title>
-    <style>
-        .question {
-            display: none;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        .question.active {
-            display: block;
-            border-color: #4CAF50;
-        }
-        .option {
-            padding: 10px;
-            margin: 5px;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .option:hover {
-            background-color: #f0f0f0;
-        }
-        .option.selected {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .progress {
-            height: 100%;
-            background-color: #4CAF50;
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.3s;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>Тест для определения танцевального стиля</h1>
-    <p>Ответьте на 10 вопросов, чтобы мы подобрали идеальный стиль для вас</p>
-    
-    <div class="progress-bar">
-        <div class="progress" id="progress"></div>
+    <div class="test-container">
+        <h1>Тест для определения танцевального стиля</h1>
+        <p>Ответьте на 10 вопросов, чтобы мы подобрали идеальный стиль для вас</p>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Вопрос 1: Возраст -->
+        <div class="question active" id="q1">
+            <h3>1. Сколько вам лет?</h3>
+            <div class="option" data-value="A">4-5 лет</div>
+            <div class="option" data-value="B">7-9 лет</div>
+            <div class="option" data-value="C">10-13 лет</div>
+            <div class="option" data-value="D">14-15 лет</div>
+            <div class="option" data-value="E">16-17 лет</div>
+            <div class="option" data-value="F">18+ лет</div>
+        </div>
+
+        <!-- Вопрос 2: Музыка -->
+        <div class="question" id="q2">
+            <h3>2. Какая музыка вам больше нравится?</h3>
+            <div class="option" data-value="А">Поп-музыка</div>
+            <div class="option" data-value="Б">R&B и соул</div>
+            <div class="option" data-value="В">Хип-хоп и рэп</div>
+            <div class="option" data-value="Г">Легкая женственная музыка</div>
+            <div class="option" data-value="Д">Энергичная клубная музыка</div>
+            <div class="option" data-value="Е">Электронная музыка</div>
+        </div>
+
+        <!-- Вопрос 3: Образ -->
+        <div class="question" id="q3">
+            <h3>3. Какой образ вам ближе?</h3>
+            <div class="option" data-value="А">Современный и модный</div>
+            <div class="option" data-value="Б">Элегантный и утонченный</div>
+            <div class="option" data-value="В">Уличный и свободный</div>
+            <div class="option" data-value="Г">Милый и игривый</div>
+            <div class="option" data-value="Д">Женственный и грациозный</div>
+            <div class="option" data-value="Е">Яркий и выразительный</div>
+        </div>
+
+        <!-- Вопрос 4: Что важно -->
+        <div class="question" id="q4">
+            <h3>4. Что для вас важно в танце?</h3>
+            <div class="option" data-value="А">Быть в тренде, современность</div>
+            <div class="option" data-value="Б">Грация и пластика движений</div>
+            <div class="option" data-value="В">Энергия и драйв</div>
+            <div class="option" data-value="Г">Легкость и воздушность</div>
+            <div class="option" data-value="Д">Женственность и выразительность</div>
+            <div class="option" data-value="Е">Эмоции и самовыражение</div>
+        </div>
+
+        <!-- Вопрос 5: Уровень подготовки -->
+        <div class="question" id="q5">
+            <h3>5. Какой у вас уровень подготовки?</h3>
+            <div class="option" data-value="А">Начинающий с нуля</div>
+            <div class="option" data-value="Б">Есть небольшой опыт</div>
+            <div class="option" data-value="В">Занимался(ась) раньше</div>
+            <div class="option" data-value="Г">Регулярно занимаюсь</div>
+            <div class="option" data-value="Д">Опытный танцор</div>
+            <div class="option" data-value="Е">Профессионал</div>
+        </div>
+
+        <!-- Вопрос 6: Темп -->
+        <div class="question" id="q6">
+            <h3>6. Какой темп вам комфортнее?</h3>
+            <div class="option" data-value="А">Медленный и плавный</div>
+            <div class="option" data-value="Б">Умеренный, с акцентами</div>
+            <div class="option" data-value="В">Быстрый и энергичный</div>
+            <div class="option" data-value="Г">Переменный, с паузами</div>
+            <div class="option" data-value="Д">Ритмичный, но неспешный</div>
+            <div class="option" data-value="Е">Очень быстрый, взрывной</div>
+        </div>
+
+        <!-- Вопрос 7: Среда -->
+        <div class="question" id="q7">
+            <h3>7. Где бы вы хотели танцевать?</h3>
+            <div class="option" data-value="А">В танцевальном зале</div>
+            <div class="option" data-value="Б">На сцене</div>
+            <div class="option" data-value="В">На улице, в клубе</div>
+            <div class="option" data-value="Г">Дома, для себя</div>
+            <div class="option" data-value="Д">На вечеринках</div>
+            <div class="option" data-value="Е">В студии для видео</div>
+        </div>
+
+        <!-- Вопрос 8: Цель -->
+        <div class="question" id="q8">
+            <h3>8. Какова ваша главная цель?</h3>
+            <div class="option" data-value="А">Научиться красиво двигаться</div>
+            <div class="option" data-value="Б">Раскрыть женственность</div>
+            <div class="option" data-value="В">Выплеснуть энергию</div>
+            <div class="option" data-value="Г">Получить удовольствие</div>
+            <div class="option" data-value="Д">Улучшить фигуру</div>
+            <div class="option" data-value="Е">Выступать на сцене</div>
+        </div>
+
+        <!-- Вопрос 9: Одежда -->
+        <div class="question" id="q9">
+            <h3>9. В какой одежде вам комфортнее?</h3>
+            <div class="option" data-value="А">Спортивная форма</div>
+            <div class="option" data-value="Б">Элегантный наряд</div>
+            <div class="option" data-value="В">Уличный стиль</div>
+            <div class="option" data-value="Г">Удобная повседневная</div>
+            <div class="option" data-value="Д">Женственное платье</div>
+            <div class="option" data-value="Е">Яркий образ</div>
+        </div>
+
+        <!-- Вопрос 10: Частота -->
+        <div class="question" id="q10">
+            <h3>10. Как часто планируете заниматься?</h3>
+            <div class="option" data-value="А">1 раз в неделю</div>
+            <div class="option" data-value="Б">2 раза в неделю</div>
+            <div class="option" data-value="В">3 раза в неделю</div>
+            <div class="option" data-value="Г">Каждый день</div>
+            <div class="option" data-value="Д">По настроению</div>
+            <div class="option" data-value="Е">Интенсивно, как можно чаще</div>
+        </div>
+
+        <!-- Результат -->
+        <div class="question" id="result" style="display: none;">
+            <h2>Ваш результат</h2>
+            <div id="result-content"></div>
+        </div>
+
+        <div class="test-navigation">
+            <button id="prev-btn" disabled>Назад</button>
+            <button id="next-btn">Далее</button>
+        </div>
     </div>
-    
-    <!-- Вопрос 1: Возраст -->
-    <div class="question active" id="q1">
-        <h3>1. Сколько вам лет?</h3>
-        <div class="option" data-value="A">4-5 лет</div>
-        <div class="option" data-value="B">7-9 лет</div>
-        <div class="option" data-value="C">10-13 лет</div>
-        <div class="option" data-value="D">14-15 лет</div>
-        <div class="option" data-value="E">16-17 лет</div>
-        <div class="option" data-value="F">18+ лет</div>
-    </div>
-    
-    <!-- Вопрос 2: Музыка -->
-    <div class="question" id="q2">
-        <h3>2. Какая музыка вам больше нравится?</h3>
-        <div class="option" data-value="А">Поп-музыка</div>
-        <div class="option" data-value="Б">R&B и соул</div>
-        <div class="option" data-value="В">Хип-хоп и рэп</div>
-        <div class="option" data-value="Г">Легкая женственная музыка</div>
-        <div class="option" data-value="Д">Энергичная клубная музыка</div>
-        <div class="option" data-value="Е">Электронная музыка</div>
-    </div>
-    
-    <!-- Вопрос 3: Образ -->
-    <div class="question" id="q3">
-        <h3>3. Какой образ вам ближе?</h3>
-        <div class="option" data-value="А">Современный и модный</div>
-        <div class="option" data-value="Б">Элегантный и утонченный</div>
-        <div class="option" data-value="В">Уличный и свободный</div>
-        <div class="option" data-value="Г">Милый и игривый</div>
-        <div class="option" data-value="Д">Женственный и грациозный</div>
-        <div class="option" data-value="Е">Яркий и выразительный</div>
-    </div>
-    
-    <!-- Вопрос 4: Что важно -->
-    <div class="question" id="q4">
-        <h3>4. Что для вас важно в танце?</h3>
-        <div class="option" data-value="А">Быть в тренде, современность</div>
-        <div class="option" data-value="Б">Грация и пластика движений</div>
-        <div class="option" data-value="В">Энергия и драйв</div>
-        <div class="option" data-value="Г">Легкость и воздушность</div>
-        <div class="option" data-value="Д">Женственность и выразительность</div>
-        <div class="option" data-value="Е">Эмоции и самовыражение</div>
-    </div>
-    
-    <!-- Вопрос 5: Уровень подготовки -->
-    <div class="question" id="q5">
-        <h3>5. Какой у вас уровень подготовки?</h3>
-        <div class="option" data-value="А">Начинающий с нуля</div>
-        <div class="option" data-value="Б">Есть небольшой опыт</div>
-        <div class="option" data-value="В">Занимался(ась) раньше</div>
-        <div class="option" data-value="Г">Регулярно занимаюсь</div>
-        <div class="option" data-value="Д">Опытный танцор</div>
-        <div class="option" data-value="Е">Профессионал</div>
-    </div>
-    
-    <!-- Вопрос 6: Темп -->
-    <div class="question" id="q6">
-        <h3>6. Какой темп вам комфортнее?</h3>
-        <div class="option" data-value="А">Медленный и плавный</div>
-        <div class="option" data-value="Б">Умеренный, с акцентами</div>
-        <div class="option" data-value="В">Быстрый и энергичный</div>
-        <div class="option" data-value="Г">Переменный, с паузами</div>
-        <div class="option" data-value="Д">Ритмичный, но неспешный</div>
-        <div class="option" data-value="Е">Очень быстрый, взрывной</div>
-    </div>
-    
-    <!-- Вопрос 7: Среда -->
-    <div class="question" id="q7">
-        <h3>7. Где бы вы хотели танцевать?</h3>
-        <div class="option" data-value="А">В танцевальном зале</div>
-        <div class="option" data-value="Б">На сцене</div>
-        <div class="option" data-value="В">На улице, в клубе</div>
-        <div class="option" data-value="Г">Дома, для себя</div>
-        <div class="option" data-value="Д">На вечеринках</div>
-        <div class="option" data-value="Е">В студии для видео</div>
-    </div>
-    
-    <!-- Вопрос 8: Цель -->
-    <div class="question" id="q8">
-        <h3>8. Какова ваша главная цель?</h3>
-        <div class="option" data-value="А">Научиться красиво двигаться</div>
-        <div class="option" data-value="Б">Раскрыть женственность</div>
-        <div class="option" data-value="В">Выплеснуть энергию</div>
-        <div class="option" data-value="Г">Получить удовольствие</div>
-        <div class="option" data-value="Д">Улучшить фигуру</div>
-        <div class="option" data-value="Е">Выступать на сцене</div>
-    </div>
-    
-    <!-- Вопрос 9: Одежда -->
-    <div class="question" id="q9">
-        <h3>9. В какой одежде вам комфортнее?</h3>
-        <div class="option" data-value="А">Спортивная форма</div>
-        <div class="option" data-value="Б">Элегантный наряд</div>
-        <div class="option" data-value="В">Уличный стиль</div>
-        <div class="option" data-value="Г">Удобная повседневная</div>
-        <div class="option" data-value="Д">Женственное платье</div>
-        <div class="option" data-value="Е">Яркий образ</div>
-    </div>
-    
-    <!-- Вопрос 10: Частота -->
-    <div class="question" id="q10">
-        <h3>10. Как часто планируете заниматься?</h3>
-        <div class="option" data-value="А">1 раз в неделю</div>
-        <div class="option" data-value="Б">2 раза в неделю</div>
-        <div class="option" data-value="В">3 раза в неделю</div>
-        <div class="option" data-value="Г">Каждый день</div>
-        <div class="option" data-value="Д">По настроению</div>
-        <div class="option" data-value="Е">Интенсивно, как можно чаще</div>
-    </div>
-    
-    <!-- Результат -->
-    <div class="question" id="result" style="display: none;">
-        <h2>Ваш результат</h2>
-        <div id="result-content"></div>
-    </div>
-    
-    <div>
-        <button id="prev-btn" disabled>Назад</button>
-        <button id="next-btn">Далее</button>
-    </div>
-    
+
     <script>
         let currentQuestion = 1;
         const totalQuestions = 10;
         let answers = [];
-        
+
         function updateProgress() {
             const progress = ((currentQuestion - 1) / totalQuestions) * 100;
             document.getElementById('progress').style.width = `${progress}%`;
         }
-        
+
         function showQuestion(num) {
             document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
             document.getElementById(`q${num}`).classList.add('active');
@@ -192,82 +154,73 @@
             document.getElementById('next-btn').textContent = num === totalQuestions ? 'Узнать результат' : 'Далее';
             updateProgress();
         }
-        
+
         document.querySelectorAll('.option').forEach(option => {
             option.addEventListener('click', function() {
                 this.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
                 this.classList.add('selected');
             });
         });
-        
+
         document.getElementById('next-btn').addEventListener('click', function() {
             const activeQuestion = document.querySelector('.question.active');
             const selectedOption = activeQuestion.querySelector('.option.selected');
-            
+
             if (!selectedOption) {
                 alert('Пожалуйста, выберите ответ');
                 return;
             }
-            
+
             if (currentQuestion === 1) {
                 answers[0] = selectedOption.dataset.value; // Возраст
             } else {
                 answers[currentQuestion - 1] = selectedOption.dataset.value;
             }
-            
+
             if (currentQuestion === totalQuestions) {
-                // Отправляем результаты
-                sendResults();
+                // Показываем результат (пока заглушка)
+                showResult();
             } else {
                 currentQuestion++;
                 showQuestion(currentQuestion);
             }
         });
-        
+
         document.getElementById('prev-btn').addEventListener('click', function() {
             if (currentQuestion > 1) {
                 currentQuestion--;
                 showQuestion(currentQuestion);
             }
         });
-        
-        function sendResults() {
-            const age = answers[0];
-            const questionAnswers = answers.slice(1);
-            
-            fetch('/api/test', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({age: age, answers: questionAnswers})
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
-                document.getElementById('result').style.display = 'block';
-                
-                let resultHTML = `
-                    <h3>Стиль: ${data.style}</h3>
-                    <p>Возраст: ${data.age}</p>
-                    <p>Тренер: ${data.teacher}</p>
-                    <p>${data.description}</p>
-                    <h4>Рекомендации:</h4>
-                    <ul>
-                `;
-                
-                if (data.additional_info && data.additional_info.recommendations) {
-                    data.additional_info.recommendations.forEach(rec => {
-                        resultHTML += `<li>${rec}</li>`;
-                    });
-                }
-                
-                resultHTML += `</ul>`;
-                document.getElementById('result-content').innerHTML = resultHTML;
-            })
-            .catch(error => {
-                alert('Ошибка: ' + error.message);
-            });
+
+        function showResult() {
+            document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+            document.getElementById('result').style.display = 'block';
+
+            // Временный результат для демонстрации
+            let resultHTML = `
+                <h3>Рекомендуемый стиль: Гёрли хип-хоп (Girly Hip-Hop)</h3>
+                <p>На основе ваших ответов, мы рекомендуем вам начать с этого направления:</p>
+                <p>Гёрли хип-хоп - это женственное направление хип-хопа с плавными, волнообразными движениями.
+                Сочетает хип-хоп основы с элементами джаз-фанка и вога. Идеально для развития пластики и женственности.</p>
+
+                <h4>Рекомендации для начала:</h4>
+                <ul>
+                    <li>Начните с базовых движений на уроках для начинающих</li>
+                    <li>Одевайтесь удобно: спортивная форма или что-то, в чем легко двигаться</li>
+                    <li>Рекомендуемая частота занятий: 2-3 раза в неделю</li>
+                    <li>Слушайте R&B и поп-музыку для лучшего понимания ритма</li>
+                </ul>
+
+                <div class="test-actions">
+                    <button onclick="window.location.href='#styles'">Посмотреть все стили</button>
+                    <button onclick="window.location.href='/'">На главную</button>
+                </div>
+            `;
+
+            document.getElementById('result-content').innerHTML = resultHTML;
         }
-        
+
         showQuestion(1);
     </script>
 </body>

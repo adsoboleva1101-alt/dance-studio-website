@@ -1062,6 +1062,288 @@ footer {
     line-height: 1.6;
 }
 
+/* ===== СТИЛИ ДЛЯ ТЕСТА ===== */
+
+/* Основной контейнер теста */
+.test-container {
+    max-width: 800px;
+    margin: 100px auto 50px;
+    background: var(--bg-white);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 128, 171, 0.1);
+}
+
+/* Заголовок теста */
+.test-container h1 {
+    font-size: 2.5rem;
+    background: var(--gradient-mix);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 10px rgba(255, 77, 141, 0.1);
+}
+
+.test-container > p {
+    text-align: center;
+    color: var(--text-medium);
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/* Прогресс-бар */
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 128, 171, 0.1);
+    border-radius: 3px;
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: var(--gradient-mix);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+/* Вопросы */
+.question {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.question.active {
+    display: block;
+}
+
+.question h3 {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 128, 171, 0.1);
+}
+
+/* Варианты ответов */
+.option {
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 0.8rem;
+    background: var(--bg-white);
+    border: 2px solid rgba(255, 128, 171, 0.2);
+    border-radius: 10px;
+    color: var(--text-dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.option:hover {
+    background: rgba(255, 77, 141, 0.05);
+    border-color: var(--pink-medium);
+    transform: translateX(5px);
+}
+
+.option.selected {
+    background: var(--gradient-mix);
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 5px 15px rgba(255, 77, 141, 0.2);
+}
+
+.option.selected::after {
+    content: '✓';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+/* Кнопки навигации */
+#prev-btn, #next-btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 2rem;
+}
+
+#prev-btn {
+    background: rgba(255, 128, 171, 0.1);
+    color: var(--pink-bright);
+    float: left;
+}
+
+#prev-btn:hover:not(:disabled) {
+    background: rgba(255, 128, 171, 0.2);
+    transform: translateY(-2px);
+}
+
+#prev-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#next-btn {
+    background: var(--gradient-mix);
+    color: var(--white);
+    float: right;
+    box-shadow: 0 4px 15px rgba(255, 77, 141, 0.25);
+}
+
+#next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 77, 141, 0.3);
+}
+
+/* Очистка float */
+.test-container > div:last-of-type {
+    clear: both;
+    padding-top: 2rem;
+}
+
+/* Результат теста */
+#result h2 {
+    font-size: 2rem;
+    color: var(--pink-bright);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+#result-content {
+    background: linear-gradient(135deg,
+        rgba(255, 235, 243, 0.2) 0%,
+        rgba(225, 245, 254, 0.2) 100%);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 128, 171, 0.1);
+}
+
+#result-content h3 {
+    font-size: 1.8rem;
+    color: var(--pink-bright);
+    margin-bottom: 1rem;
+}
+
+#result-content h4 {
+    font-size: 1.3rem;
+    color: var(--blue-bright);
+    margin: 1.5rem 0 0.8rem 0;
+}
+
+#result-content p {
+    color: var(--text-medium);
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+#result-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#result-content li {
+    padding: 0.5rem 0;
+    color: var(--text-medium);
+    position: relative;
+    padding-left: 1.8rem;
+    line-height: 1.6;
+}
+
+#result-content li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--pink-bright);
+    font-weight: bold;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Эффект при выборе варианта */
+.option {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Улучшение визуальной иерархии */
+.question {
+    counter-increment: question-counter;
+}
+
+.question h3::before {
+    content: counter(question-counter) ". ";
+    color: var(--pink-bright);
+    font-weight: bold;
+}
+
+/* Подсветка активного состояния */
+.question.active h3 {
+    color: var(--text-dark);
+}
+/* ===== СТИЛИ ДЛЯ ТЕСТА ===== */
+
+/* Контейнер навигации теста */
+.test-navigation {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 128, 171, 0.1);
+    display: flex;
+    justify-content: space-between;
+    clear: both;
+}
+
+/* Действия на странице результата */
+.test-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.test-actions button {
+    padding: 0.8rem 2rem;
+    background: var(--gradient-mix);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(255, 77, 141, 0.25);
+}
+
+.test-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 77, 141, 0.3);
+}
+
+.test-actions button:first-child {
+    background: var(--gradient-pink);
+}
+
+.test-actions button:last-child {
+    background: var(--gradient-blue);
+}
 /* Основной контент */
 .dances-main {
     background: var(--bg-main);
