@@ -26,7 +26,7 @@
             <div class="option" data-value="F">18+ лет</div>
         </div>
 
-        <!-- Вопрос 2: Музыка -->
+        <!-- Вопрос 2: Музыка (только для возраста 10+) -->
         <div class="question" id="q2">
             <h3>2. Какая музыка вам больше нравится?</h3>
             <div class="option" data-value="А">Поп-музыка</div>
@@ -141,6 +141,7 @@
         let currentQuestion = 1;
         const totalQuestions = 10;
         let answers = [];
+        let ageChoice = null;
 
         function updateProgress() {
             const progress = ((currentQuestion - 1) / totalQuestions) * 100;
@@ -151,14 +152,85 @@
             document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
             document.getElementById(`q${num}`).classList.add('active');
             document.getElementById('prev-btn').disabled = num === 1;
-            document.getElementById('next-btn').textContent = num === totalQuestions ? 'Узнать результат' : 'Далее';
+            
+            if (num === 1) {
+                document.getElementById('next-btn').textContent = 'Далее';
+            } else if (num === totalQuestions) {
+                document.getElementById('next-btn').textContent = 'Узнать результат';
+            } else {
+                document.getElementById('next-btn').textContent = 'Далее';
+            }
+            
             updateProgress();
+        }
+
+        function showResultForKids(ageChoice) {
+            document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+            document.getElementById('result').style.display = 'block';
+            document.querySelector('.test-navigation').style.display = 'none';
+
+            let resultHTML = '';
+            
+            if (ageChoice === "A") {
+                resultHTML = `
+                    <h3>Рекомендуемый стиль: Baby 4-5</h3>
+                    <p>Возрастная группа: 4-5 лет</p>
+                    <p>Идеально для малышей! Простые и веселые танцы, которые развивают координацию и чувство ритма.</p>
+                    
+                    <h4>Рекомендуемый преподаватель: Соня Баловнева</h4>
+                    <p>Соня - универсальный преподаватель, работающий как с малышами, так и с подростками. Её терпение и любовь к детям делают каждое занятие особенным. Она создаёт волшебную атмосферу, где даже самые маленькие танцоры чувствуют себя звездами.</p>
+
+                    <h4>Рекомендации для начала:</h4>
+                    <ul>
+                        <li>Простые и веселые движения под детскую музыку</li>
+                        <li>Удобная спортивная форма</li>
+                        <li>Рекомендуемая частота занятий: 1-2 раза в неделю</li>
+                        <li>Слушайте детские песенки для лучшего понимания ритма</li>
+                    </ul>
+                `;
+            } else if (ageChoice === "B") {
+                resultHTML = `
+                    <h3>Рекомендуемый стиль: Kids 7-9</h3>
+                    <p>Возрастная группа: 7-9 лет</p>
+                    <p>Танцы для детей! Основы хореографии и современного танца в игровой форме.</p>
+                    
+                    <h4>Рекомендуемый преподаватель: Даша Шорникова</h4>
+                    <p>Даша - талантливый хореограф с многолетним опытом работы с детьми. Её занятия всегда наполнены энергией и творчеством. Она умеет находить подход к каждому ребёнку, помогая раскрыть их танцевальный потенциал.</p>
+
+                    <h4>Рекомендации для начала:</h4>
+                    <ul>
+                        <li>Начните с базовых движений на уроках для начинающих</li>
+                        <li>Одевайтесь удобно: спортивная форма</li>
+                        <li>Рекомендуемая частота занятий: 2 раза в неделю</li>
+                        <li>Слушайте современную поп-музыку для лучшего понимания ритма</li>
+                    </ul>
+                `;
+            }
+
+            resultHTML += `
+                <div class="test-actions">
+                    <button onclick="window.location.href='/dances'">Посмотреть все стили</button>
+                    <button onclick="window.location.href='/'">На главную</button>
+                </div>
+            `;
+
+            document.getElementById('result-content').innerHTML = resultHTML;
         }
 
         document.querySelectorAll('.option').forEach(option => {
             option.addEventListener('click', function() {
                 this.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
                 this.classList.add('selected');
+                
+                if (this.parentElement.id === 'q1') {
+                    ageChoice = this.dataset.value;
+                    
+                    if (ageChoice === "A" || ageChoice === "B") {
+                        document.getElementById('next-btn').textContent = 'Узнать результат';
+                    } else {
+                        document.getElementById('next-btn').textContent = 'Далее';
+                    }
+                }
             });
         });
 
@@ -173,12 +245,19 @@
 
             if (currentQuestion === 1) {
                 answers[0] = selectedOption.dataset.value;
+                ageChoice = answers[0];
+                
+                if (ageChoice === "A" || ageChoice === "B") {
+                    showResultForKids(ageChoice);
+                    return;
+                }
             } else {
                 answers[currentQuestion - 1] = selectedOption.dataset.value;
             }
 
             if (currentQuestion === totalQuestions) {
-                showResult();
+
+                showResultForTeensAndAdults();
             } else {
                 currentQuestion++;
                 showQuestion(currentQuestion);
@@ -192,7 +271,7 @@
             }
         });
 
-        function showResult() {
+        function showResultForTeensAndAdults() {
             document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
             document.getElementById('result').style.display = 'block';
             document.querySelector('.test-navigation').style.display = 'none';
@@ -202,6 +281,9 @@
                 <p>На основе ваших ответов, мы рекомендуем вам начать с этого направления:</p>
                 <p>Гёрли хип-хоп - это женственное направление хип-хопа с плавными, волнообразными движениями.
                 Сочетает хип-хоп основы с элементами джаз-фанка и вога. Идеально для развития пластики и женственности.</p>
+
+                <h4>Рекомендуемый преподаватель: Катя Четина</h4>
+                <p>Катя - настоящая звезда хип-хоп сцены. Её стиль - это уникальное сочетание мощной энергии и женственности. На занятиях она создаёт атмосферу, где каждый может почувствовать себя уверенно и свободно.</p>
 
                 <h4>Рекомендации для начала:</h4>
                 <ul>
