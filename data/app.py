@@ -367,7 +367,7 @@ def test():
 
 @app.route('/api/test', methods=['POST'])
 def process_test():
-    """Обработка теста стиля - РАСШИРЕННАЯ ВЕРСИЯ С 10 ВОПРОСАМИ"""
+    """Обработка теста стиля"""
     try:
         data = request.json
         age_choice = data.get('age')
