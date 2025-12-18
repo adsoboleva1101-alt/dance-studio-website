@@ -1,154 +1,274 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Тест стиля - Танцевальная студия</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2rem; }
-            .container { max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-            .btn { background: #e91e63; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; transition: background 0.3s; }
-            .btn:hover { background: #c2185b; }
-            .option { padding: 1rem; background: #f0f0f0; margin: 5px 0; cursor: pointer; border-radius: 5px; transition: background 0.3s; }
-            .option:hover { background: #e0e0e0; }
-            .hidden { display: none; }
-            .result { background: #e8f5e8; padding: 1rem; border-radius: 5px; margin: 1rem 0; }
-            h1 { color: #e91e63; margin-bottom: 1rem; }
-            .test-controls { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Тест: Твой стиль танца</h1>
-
-            <div id="question-1">
-                <h3>1. Сколько тебе лет?</h3>
-                <div class="option" onclick="selectOption(1, 'A')">4-5 лет</div>
-                <div class="option" onclick="selectOption(1, 'B')">7-9 лет</div>
-                <div class="option" onclick="selectOption(1, 'C')">10-13 лет</div>
-                <div class="option" onclick="selectOption(1, 'D')">14-15 лет</div>
-                <div class="option" onclick="selectOption(1, 'E')">16-17 лет</div>
-                <div class="option" onclick="selectOption(1, 'F')">18+ лет</div>
-            </div>
-
-            <div id="question-2" class="hidden">
-                <h3>2. Какая музыка тебе нравится?</h3>
-                <div class="option" onclick="selectOption(2, 'A')">Поп</div>
-                <div class="option" onclick="selectOption(2, 'B')">R&B</div>
-                <div class="option" onclick="selectOption(2, 'C')">Хип-хоп</div>
-                <div class="option" onclick="selectOption(2, 'D')">Женственная</div>
-                <div class="option" onclick="selectOption(2, 'E')">Энергичная</div>
-                <div class="option" onclick="selectOption(2, 'F')">Электроника</div>
-            </div>
-
-            <div id="result" class="hidden result"></div>
-
-            <div class="test-controls">
-                <button class="btn hidden" onclick="prevQuestion()" id="prev-btn">Назад</button>
-                <button class="btn" onclick="nextQuestion()" id="next-btn">Далее</button>
-                <button class="btn hidden" onclick="restartTest()" id="restart-btn">Пройти снова</button>
-            </div>
-        </div>
-
-        <script>
-            let currentQuestion = 1;
-            let age = '';
-            let answers = [];
-
-            function selectOption(questionNum, value) {
-                if (questionNum === 1) {
-                    age = value;
-                } else {
-                    answers = [value];
-                }
-                document.querySelectorAll('.option').forEach(opt => {
-                    opt.style.background = '#f0f0f0';
-                    opt.style.color = 'black';
-                });
-                event.target.style.background = '#e91e63';
-                event.target.style.color = 'white';
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест стиля - 10 вопросов</title>
+    <style>
+        .question {
+            display: none;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .question.active {
+            display: block;
+            border-color: #4CAF50;
+        }
+        .option {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .option.selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .progress {
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тест для определения танцевального стиля</h1>
+    <p>Ответьте на 10 вопросов, чтобы мы подобрали идеальный стиль для вас</p>
+    
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+    
+    <!-- Вопрос 1: Возраст -->
+    <div class="question active" id="q1">
+        <h3>1. Сколько вам лет?</h3>
+        <div class="option" data-value="A">4-5 лет</div>
+        <div class="option" data-value="B">7-9 лет</div>
+        <div class="option" data-value="C">10-13 лет</div>
+        <div class="option" data-value="D">14-15 лет</div>
+        <div class="option" data-value="E">16-17 лет</div>
+        <div class="option" data-value="F">18+ лет</div>
+    </div>
+    
+    <!-- Вопрос 2: Музыка -->
+    <div class="question" id="q2">
+        <h3>2. Какая музыка вам больше нравится?</h3>
+        <div class="option" data-value="А">Поп-музыка</div>
+        <div class="option" data-value="Б">R&B и соул</div>
+        <div class="option" data-value="В">Хип-хоп и рэп</div>
+        <div class="option" data-value="Г">Легкая женственная музыка</div>
+        <div class="option" data-value="Д">Энергичная клубная музыка</div>
+        <div class="option" data-value="Е">Электронная музыка</div>
+    </div>
+    
+    <!-- Вопрос 3: Образ -->
+    <div class="question" id="q3">
+        <h3>3. Какой образ вам ближе?</h3>
+        <div class="option" data-value="А">Современный и модный</div>
+        <div class="option" data-value="Б">Элегантный и утонченный</div>
+        <div class="option" data-value="В">Уличный и свободный</div>
+        <div class="option" data-value="Г">Милый и игривый</div>
+        <div class="option" data-value="Д">Женственный и грациозный</div>
+        <div class="option" data-value="Е">Яркий и выразительный</div>
+    </div>
+    
+    <!-- Вопрос 4: Что важно -->
+    <div class="question" id="q4">
+        <h3>4. Что для вас важно в танце?</h3>
+        <div class="option" data-value="А">Быть в тренде, современность</div>
+        <div class="option" data-value="Б">Грация и пластика движений</div>
+        <div class="option" data-value="В">Энергия и драйв</div>
+        <div class="option" data-value="Г">Легкость и воздушность</div>
+        <div class="option" data-value="Д">Женственность и выразительность</div>
+        <div class="option" data-value="Е">Эмоции и самовыражение</div>
+    </div>
+    
+    <!-- Вопрос 5: Уровень подготовки -->
+    <div class="question" id="q5">
+        <h3>5. Какой у вас уровень подготовки?</h3>
+        <div class="option" data-value="А">Начинающий с нуля</div>
+        <div class="option" data-value="Б">Есть небольшой опыт</div>
+        <div class="option" data-value="В">Занимался(ась) раньше</div>
+        <div class="option" data-value="Г">Регулярно занимаюсь</div>
+        <div class="option" data-value="Д">Опытный танцор</div>
+        <div class="option" data-value="Е">Профессионал</div>
+    </div>
+    
+    <!-- Вопрос 6: Темп -->
+    <div class="question" id="q6">
+        <h3>6. Какой темп вам комфортнее?</h3>
+        <div class="option" data-value="А">Медленный и плавный</div>
+        <div class="option" data-value="Б">Умеренный, с акцентами</div>
+        <div class="option" data-value="В">Быстрый и энергичный</div>
+        <div class="option" data-value="Г">Переменный, с паузами</div>
+        <div class="option" data-value="Д">Ритмичный, но неспешный</div>
+        <div class="option" data-value="Е">Очень быстрый, взрывной</div>
+    </div>
+    
+    <!-- Вопрос 7: Среда -->
+    <div class="question" id="q7">
+        <h3>7. Где бы вы хотели танцевать?</h3>
+        <div class="option" data-value="А">В танцевальном зале</div>
+        <div class="option" data-value="Б">На сцене</div>
+        <div class="option" data-value="В">На улице, в клубе</div>
+        <div class="option" data-value="Г">Дома, для себя</div>
+        <div class="option" data-value="Д">На вечеринках</div>
+        <div class="option" data-value="Е">В студии для видео</div>
+    </div>
+    
+    <!-- Вопрос 8: Цель -->
+    <div class="question" id="q8">
+        <h3>8. Какова ваша главная цель?</h3>
+        <div class="option" data-value="А">Научиться красиво двигаться</div>
+        <div class="option" data-value="Б">Раскрыть женственность</div>
+        <div class="option" data-value="В">Выплеснуть энергию</div>
+        <div class="option" data-value="Г">Получить удовольствие</div>
+        <div class="option" data-value="Д">Улучшить фигуру</div>
+        <div class="option" data-value="Е">Выступать на сцене</div>
+    </div>
+    
+    <!-- Вопрос 9: Одежда -->
+    <div class="question" id="q9">
+        <h3>9. В какой одежде вам комфортнее?</h3>
+        <div class="option" data-value="А">Спортивная форма</div>
+        <div class="option" data-value="Б">Элегантный наряд</div>
+        <div class="option" data-value="В">Уличный стиль</div>
+        <div class="option" data-value="Г">Удобная повседневная</div>
+        <div class="option" data-value="Д">Женственное платье</div>
+        <div class="option" data-value="Е">Яркий образ</div>
+    </div>
+    
+    <!-- Вопрос 10: Частота -->
+    <div class="question" id="q10">
+        <h3>10. Как часто планируете заниматься?</h3>
+        <div class="option" data-value="А">1 раз в неделю</div>
+        <div class="option" data-value="Б">2 раза в неделю</div>
+        <div class="option" data-value="В">3 раза в неделю</div>
+        <div class="option" data-value="Г">Каждый день</div>
+        <div class="option" data-value="Д">По настроению</div>
+        <div class="option" data-value="Е">Интенсивно, как можно чаще</div>
+    </div>
+    
+    <!-- Результат -->
+    <div class="question" id="result" style="display: none;">
+        <h2>Ваш результат</h2>
+        <div id="result-content"></div>
+    </div>
+    
+    <div>
+        <button id="prev-btn" disabled>Назад</button>
+        <button id="next-btn">Далее</button>
+    </div>
+    
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        let answers = [];
+        
+        function updateProgress() {
+            const progress = ((currentQuestion - 1) / totalQuestions) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+        
+        function showQuestion(num) {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+            document.getElementById(`q${num}`).classList.add('active');
+            document.getElementById('prev-btn').disabled = num === 1;
+            document.getElementById('next-btn').textContent = num === totalQuestions ? 'Узнать результат' : 'Далее';
+            updateProgress();
+        }
+        
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        document.getElementById('next-btn').addEventListener('click', function() {
+            const activeQuestion = document.querySelector('.question.active');
+            const selectedOption = activeQuestion.querySelector('.option.selected');
+            
+            if (!selectedOption) {
+                alert('Пожалуйста, выберите ответ');
+                return;
             }
-
-            function nextQuestion() {
-                if (currentQuestion === 1 && !age) {
-                    alert('Выберите возраст');
-                    return;
-                }
-
-                if (age && (age === 'A' || age === 'B')) {
-                    submitTest();
-                    return;
-                }
-
-                if (currentQuestion === 1) {
-                    document.getElementById('question-1').classList.add('hidden');
-                    document.getElementById('question-2').classList.remove('hidden');
-                    document.getElementById('prev-btn').classList.remove('hidden');
-                    currentQuestion = 2;
-                } else {
-                    if (!answers.length) {
-                        alert('Выберите вариант ответа');
-                        return;
-                    }
-                    submitTest();
-                }
+            
+            if (currentQuestion === 1) {
+                answers[0] = selectedOption.dataset.value; // Возраст
+            } else {
+                answers[currentQuestion - 1] = selectedOption.dataset.value;
             }
-
-            function prevQuestion() {
-                if (currentQuestion === 2) {
-                    document.getElementById('question-2').classList.add('hidden');
-                    document.getElementById('question-1').classList.remove('hidden');
-                    document.getElementById('prev-btn').classList.add('hidden');
-                    currentQuestion = 1;
-                    answers = [];
+            
+            if (currentQuestion === totalQuestions) {
+                // Отправляем результаты
+                sendResults();
+            } else {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        function sendResults() {
+            const age = answers[0];
+            const questionAnswers = answers.slice(1);
+            
+            fetch('/api/test', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({age: age, answers: questionAnswers})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+                document.getElementById('result').style.display = 'block';
+                
+                let resultHTML = `
+                    <h3>Стиль: ${data.style}</h3>
+                    <p>Возраст: ${data.age}</p>
+                    <p>Тренер: ${data.teacher}</p>
+                    <p>${data.description}</p>
+                    <h4>Рекомендации:</h4>
+                    <ul>
+                `;
+                
+                if (data.additional_info && data.additional_info.recommendations) {
+                    data.additional_info.recommendations.forEach(rec => {
+                        resultHTML += `<li>${rec}</li>`;
+                    });
                 }
-            }
-
-            function submitTest() {
-                fetch('/api/test', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ age: age, answers: answers })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('question-1').classList.add('hidden');
-                    document.getElementById('question-2').classList.add('hidden');
-                    document.getElementById('next-btn').classList.add('hidden');
-                    document.getElementById('prev-btn').classList.add('hidden');
-
-                    const resultDiv = document.getElementById('result');
-                    resultDiv.innerHTML = `
-                        <h3>Твой результат:</h3>
-                        <p><strong>Стиль:</strong> ${data.style}</p>
-                        <p><strong>Возраст:</strong> ${data.age}</p>
-                        <p><strong>Тренер:</strong> ${data.teacher}</p>
-                    `;
-                    resultDiv.classList.remove('hidden');
-                    document.getElementById('restart-btn').classList.remove('hidden');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Произошла ошибка при отправке теста');
-                });
-            }
-
-            function restartTest() {
-                currentQuestion = 1;
-                age = '';
-                answers = [];
-                document.getElementById('question-1').classList.remove('hidden');
-                document.getElementById('question-2').classList.add('hidden');
-                document.getElementById('result').classList.add('hidden');
-                document.getElementById('next-btn').classList.remove('hidden');
-                document.getElementById('prev-btn').classList.add('hidden');
-                document.getElementById('restart-btn').classList.add('hidden');
-                document.querySelectorAll('.option').forEach(opt => {
-                    opt.style.background = '#f0f0f0';
-                    opt.style.color = 'black';
-                });
-            }
-        </script>
-    </body>
-    </html>
+                
+                resultHTML += `</ul>`;
+                document.getElementById('result-content').innerHTML = resultHTML;
+            })
+            .catch(error => {
+                alert('Ошибка: ' + error.message);
+            });
+        }
+        
+        showQuestion(1);
+    </script>
+</body>
+</html>
