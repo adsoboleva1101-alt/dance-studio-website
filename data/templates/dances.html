@@ -15,15 +15,13 @@
             <nav>
                 <ul>
                     <li><a href="/">Главная</a></li>
-                    <li><a href="/schedule">Расписание</a></li>
                     <li><a href="/coaches">Тренеры</a></li>
-                    <li><a href="/prices">Цены</a></li>
+                    <li><a href="/price">Цены</a></li>
+                    <li><a href="/schedule">Расписание</a></li>
                     {% if is_authenticated %}
                         <li>
-                            <div class="user-info">
-                                <a href="/profile" class="btn-profile">
-                                    <span class="user-name">{{ current_user_name }}</span>
-                                </a>
+                            <div class="user-display">
+                                <span class="user-name-display">{{ current_user_name }}</span>
                             </div>
                         </li>
                         <li><a href="/logout" class="btn-logout">Выйти</a></li>

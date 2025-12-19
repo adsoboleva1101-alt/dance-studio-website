@@ -20,10 +20,8 @@
                     <li><a href="/dances">О танцах</a></li>
                     {% if is_authenticated %}
                         <li>
-                            <div class="user-info">
-                                <a href="/profile" class="btn-profile">
-                                    <span class="user-name">{{ current_user_name }}</span>
-                                </a>
+                            <div class="user-display">
+                                <span class="user-name-display">{{ current_user_name }}</span>
                             </div>
                         </li>
                         <li><a href="/logout" class="btn-logout">Выйти</a></li>
