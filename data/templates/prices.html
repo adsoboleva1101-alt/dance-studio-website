@@ -160,35 +160,44 @@
         </div>
 
         <h2>Условия</h2>
-<div class="prices-grid">
-    {% for key, info in prices_data.other.items() %}
-    <div class="price-card">
-        <h3>{{ info.name }}</h3>
-        
-        {# Проверяем, является ли price списком #}
-        {% if info.price is iterable and info.price is not string %}
-            <div class="multiple-prices">
-                {% for price_item in info.price %}
-                    <div class="price-line">{{ price_item }}</div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="price">{{ info.price }}</div>
-        {% endif %}
-        
-        {# Условия, если есть #}
-        {% if info.conditions %}
-            <p class="conditions">{{ info.conditions }}</p>
-        {% endif %}
-    </div>
-    {% endfor %}
-</div>
-    <div style="height: 60px;"></div>
+        <div class="prices-grid">
+            {% for key, info in prices_data.other.items() %}
+            <div class="price-card">
+                <h3>{{ info.name }}</h3>
 
-        <footer>
-    <div class="footer-content">
+                {# Проверяем, является ли price списком #}
+                {% if info.price is iterable and info.price is not string %}
+                    <div class="multiple-prices">
+                        {% for price_item in info.price %}
+                            <div class="price-line">{{ price_item }}</div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="price">{{ info.price }}</div>
+                {% endif %}
+
+                {# Условия, если есть #}
+                {% if info.conditions %}
+                    <p class="conditions">{{ info.conditions }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="info-box">
+            <h3>Важная информация:</h3>
+            <ul>
+                <li>Все занятия проводятся по адресу: Рижский пр. 16</li>
+                <li>Продолжительность групповых занятий: 1 час</li>
+                <li>Продолжительность индивидуальных занятий: 1-2 часа</li>
+                <li>Для записи на занятия необходима предварительная регистрация</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
         <div class="container">
-            <div class="footer-sections">
+            <div class="footer-content">
                 <div class="footer-section">
                     <h3>Танцевальная студия</h3>
                     <p>Раскройте свой танцевальный потенциал вместе с нами!</p>
@@ -198,24 +207,23 @@
                     <h3>Контакты</h3>
                     <p>Email: info@dance-studio.ru</p>
                     <p>Телефон: +7 (999) 123-45-67</p>
-                    <p>Адрес: Псков, Римский 16</p>
+                    <p>Адрес: Псков, Рижский пр. 16</p>
                     <p>Часы работы: Пн-Вс 9:00-22:00</p>
                 </div>
                 <div class="footer-section">
                     <h3>Быстрые ссылки</h3>
                     <p><a href="/">Главная</a></p>
-                    <p><a href="#styles">Стили танцев</a></p>
-                    <p><a href="#schedule">Расписание</a></p>
-                    <p><a href="/coaches">Наши тренеры</a></p>
-                    <p><a href="/prices">Стоимость занятий</a></p>
+                    <p><a href="/schedule">Расписание</a></p>
+                    <p><a href="/coaches">Тренеры</a></p>
+                    <p><a href="/prices">Цены</a></p>
+                    <p><a href="/dances">О танцах</a></p>
                     <p><a href="/registration">Регистрация</a></p>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Танцевальная студия. Все права защищены.</p>
+            </div>
         </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <p>&copy; 2025 Танцевальная студия. Все права защищены.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
+</body>
+</html>
