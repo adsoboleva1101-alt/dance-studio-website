@@ -19,12 +19,24 @@
                     <li><a href="/prices">Цены</a></li>
                     <li><a href="/dances">О танцах</a></li>
                     <li><a href="#about">О нас</a></li>
-                    <li><a href="/login" class="btn-login">Вход</a></li>
+                    {% if is_authenticated %}
+                        <li>
+                            <div class="user-info">
+                                <a href="/profile" class="btn-profile">
+                                    <span class="user-name">{{ current_user_name }}</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li><a href="/logout" class="btn-logout">Выйти</a></li>
+                    {% else %}
+                        <li><a href="/login" class="btn-login">Вход</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
     </header>
 
+    <!-- Остальной код остается без изменений -->
     <section class="hero">
         <div class="container">
             <h1>Найди свой стиль танца</h1>

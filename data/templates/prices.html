@@ -22,15 +22,26 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                Танцевальная студия
+                <a href="/" style="text-decoration: none; color: inherit;">Танцевальная студия</a>
             </div>
             <nav>
                 <ul>
                     <li><a href="/">Главная</a></li>
-                    <li><a href="/coaches">Тренеры</a></li>
                     <li><a href="/schedule">Расписание</a></li>
+                    <li><a href="/coaches">Тренеры</a></li>
                     <li><a href="/dances">О танцах</a></li>
-                    <li><a href="/login" class="btn-login">Вход</a></li>
+                    {% if is_authenticated %}
+                        <li>
+                            <div class="user-info">
+                                <a href="/profile" class="btn-profile">
+                                    <span class="user-name">{{ current_user_name }}</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li><a href="/logout" class="btn-logout">Выйти</a></li>
+                    {% else %}
+                        <li><a href="/login" class="btn-login">Вход</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>

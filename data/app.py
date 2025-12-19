@@ -360,12 +360,11 @@ def profile():
         return redirect('/login')
 
 
-# В вашем app.py добавьте/обновите следующие маршруты:
-
 @app.route('/test')
 def test():
     """Страница теста стиля"""
     return render_template('test.html')
+
 
 @app.route('/api/test', methods=['POST'])
 def process_test():
@@ -376,7 +375,6 @@ def process_test():
         answers = data.get('answers', [])
         user_id = session.get('user_id')
 
-        # 1. Если возраст 4-5 или 7-9 лет
         if age_choice == "A":
             result = {
                 "style": "Baby 4-5",
@@ -392,7 +390,6 @@ def process_test():
                 "description": "Танцы для детей!"
             }
         else:
-            # 2. Для возраста 10+ лет анализируем ответы
             question_weights = {
                 2: {"А": {"Choreo": 2}, "Б": {"High Heels": 2}, "В": {"Hip-hop": 3},
                     "Г": {"Girly hip-hop": 2}, "Д": {"Girly Choreo": 2}, "Е": {"Jazz Funk": 3}},
@@ -426,7 +423,6 @@ def process_test():
 
             recommended_style = max(style_scores, key=style_scores.get)
 
-            # 3. Проверяем возрастные ограничения
             age_mapping = {
                 "C": {"text": "10-13 лет", "numeric": 12},
                 "D": {"text": "14-15 лет", "numeric": 14},
@@ -465,7 +461,6 @@ def process_test():
             final_style = recommended_style
             final_teacher = teachers_by_style.get(recommended_style, "")
 
-            # Проверка возрастных ограничений
             if recommended_style in min_age_requirements:
                 min_age = min_age_requirements[recommended_style]
                 if user_age < min_age:
@@ -489,7 +484,6 @@ def process_test():
                 "date": datetime.now().isoformat()
             }
 
-        # Сохраняем результат
         results = load_json_file(RESULTS_FILE)
         results.append(result)
         save_json_file(RESULTS_FILE, results)
@@ -497,10 +491,8 @@ def process_test():
         if user_id:
             try:
                 db = get_db()
-                # Сначала проверяем, есть ли таблица test_results
                 cursor = db.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='test_results'")
                 if not cursor.fetchone():
-                    # Создаем таблицу если ее нет
                     db.execute('''
                         CREATE TABLE test_results (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -528,6 +520,7 @@ def process_test():
         print(f"Ошибка в process_test: {e}")
         return jsonify({"error": "Ошибка обработки теста"}), 500
 
+
 @app.route('/schedule')
 def schedule():
     """Страница расписания"""
@@ -547,6 +540,7 @@ def dances():
     """ Функция для отображения страницы "О танцах" """
     return render_template('dances.html')
 
+
 @app.route('/api/calculate_result', methods=['POST'])
 def calculate_result():
     """Рассчитать результат теста на основе ответов (для AJAX)"""
@@ -554,8 +548,6 @@ def calculate_result():
         data = request.json
         age_choice = data.get('age')
         answers = data.get('answers', [])
-        
-        # Используем ту же логику, что и в process_test
         if age_choice == "A":
             result = {
                 "style": "Baby 4-5",
@@ -671,6 +663,7 @@ def calculate_result():
         print(f"Ошибка в calculate_result: {e}")
         return jsonify({"error": str(e)}), 500
 
+
 @app.route('/prices')
 def prices():
     """Страница цен"""
@@ -730,17 +723,14 @@ def login():
         try:
             db = get_db()
 
-            # Ищем пользователя
             cursor = db.execute('SELECT * FROM users WHERE email = ?', (email,))
             user = cursor.fetchone()
 
             if user:
                 if user['password'] == password:
-                    # Обновляем last_login
                     db.execute('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?', (user['id'],))
                     db.commit()
 
-                    # ДОБАВЛЕНО: Сохраняем в сессию
                     session['user_id'] = user['id']
                     session['user_name'] = user['first_name']
                     session['user_email'] = user['email']
@@ -764,7 +754,6 @@ def login():
     return render_template('login.html', message=message)
 
 
-# Страница регистрации
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     if request.method == 'POST':
@@ -839,6 +828,22 @@ def logout():
     session.clear()
     return redirect('/')
 
+
+@app.context_processor
+def inject_user():
+    """Добавляет информацию о пользователе во все шаблоны"""
+    user_name = None
+    is_authenticated = False
+
+    if 'user_id' in session:
+        is_authenticated = True
+        user_name = session.get('user_name')
+
+    return dict(
+        is_authenticated=is_authenticated,
+        current_user_name=user_name,
+        current_user_id=session.get('user_id')
+    )
 
 if __name__ == '__main__':
     if not os.path.exists(USERS_FILE):

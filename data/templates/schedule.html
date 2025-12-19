@@ -5,23 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/style.css">
-    <style>
-        body {
-            padding-top: 80px !important;
-        }
-        .container {
-            padding-top: 20px;
-        }
-        .schedule-container {
-            margin-top: 80px !important;
-        }
-    </style>
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo">
-                Танцевальная студия
+                <a href="/" style="text-decoration: none; color: inherit;">Танцевальная студия</a>
             </div>
             <nav>
                 <ul>
@@ -29,25 +18,24 @@
                     <li><a href="/coaches">Тренеры</a></li>
                     <li><a href="/prices">Цены</a></li>
                     <li><a href="/dances">О танцах</a></li>
-                    <li><a href="/login" class="btn-login">Вход</a></li>
+                    {% if is_authenticated %}
+                        <li>
+                            <div class="user-info">
+                                <a href="/profile" class="btn-profile">
+                                    <span class="user-name">{{ current_user_name }}</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li><a href="/logout" class="btn-logout">Выйти</a></li>
+                    {% else %}
+                        <li><a href="/login" class="btn-login">Вход</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div class="container schedule-container">
-        {% if user_name %}
-        <div class="user-panel">
-            <div class="user-info">
-                Здравствуйте, <strong>{{ user_name }}</strong>!
-            </div>
-            <div>
-                <a href="/profile" class="btn">Личный кабинет</a>
-                <a href="/logout" class="btn btn-logout">Выйти</a>
-            </div>
-        </div>
-        {% endif %}
-
+    <div class="container" style="padding-top: 100px;">
         <h1>Расписание занятий</h1>
 
         {% for category, items in schedule_data.items() %}
@@ -85,9 +73,9 @@
         </table>
         {% endfor %}
 
-        <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+        <div class="info-box">
             <h3>Важная информация:</h3>
-            <ul style="margin-top: 1rem;">
+            <ul>
                 <li>Все занятия проводятся по адресу: Рижский пр. 16</li>
                 <li>Продолжительность групповых занятий: 2 часа</li>
                 <li>Продолжительность индивидуальных занятий: 1-2 часа</li>
@@ -95,8 +83,6 @@
             </ul>
         </div>
     </div>
-
-    <div style="height: 60px;"></div>
 
     <footer>
         <div class="container">
@@ -116,10 +102,10 @@
                 <div class="footer-section">
                     <h3>Быстрые ссылки</h3>
                     <p><a href="/">Главная</a></p>
-                    <p><a href="#styles">Стили танцев</a></p>
-                    <p><a href="#schedule">Расписание</a></p>
-                    <p><a href="/coaches">Наши тренеры</a></p>
-                    <p><a href="/prices">Стоимость занятий</a></p>
+                    <p><a href="/coaches">Тренеры</a></p>
+                    <p><a href="/prices">Цены</a></p>
+                    <p><a href="/schedule">Расписание</a></p>
+                    <p><a href="/dances">О танцах</a></p>
                     <p><a href="/registration">Регистрация</a></p>
                 </div>
             </div>
