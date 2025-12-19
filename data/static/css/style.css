@@ -1286,17 +1286,6 @@ footer {
     animation: fadeIn 0.3s ease;
 }
 
-/* Улучшение визуальной иерархии */
-.question {
-    counter-increment: question-counter;
-}
-
-.question h3::before {
-    content: counter(question-counter) ". ";
-    color: var(--pink-bright);
-    font-weight: bold;
-}
-
 /* Подсветка активного состояния */
 .question.active h3 {
     color: var(--text-dark);
