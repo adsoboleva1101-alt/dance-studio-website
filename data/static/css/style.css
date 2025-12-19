@@ -1933,3 +1933,74 @@ input:focus, select:focus, textarea:focus {
     align-items: center;
     justify-content: center;
 }
+/* ФИКС ФУТЕРА - ПОЛНАЯ ШИРИНА */
+footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+    color: var(--white);
+    padding: 4rem 0 0 0;
+    margin-top: 6rem;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+.footer-content {
+    width: 100%;
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+}
+
+.footer-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.footer-section h3 {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+.footer-section p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.footer-section a {
+    color: var(--blue-medium);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-section a:hover {
+    color: var(--blue-bright);
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 2rem 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Гарантируем полную ширину */
+footer,
+footer .footer-content,
+footer .footer-bottom {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Убираем ограничение контейнера внутри футера */
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
