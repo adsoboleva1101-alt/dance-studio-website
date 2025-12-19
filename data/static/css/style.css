@@ -1756,3 +1756,96 @@ input:focus, select:focus, textarea:focus {
     border-color: var(--pink-medium);
     box-shadow: 0 0 0 3px rgba(255, 128, 171, 0.1);
 }
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ЦЕН ===== */
+
+/* Стили для нескольких цен столбцом */
+.multiple-prices {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.price-line {
+    padding: 10px 0;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.price-line:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 128, 171, 0.15);
+}
+
+/* Стили для обычной цены */
+.price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--pink-bright);
+    margin: 15px 0;
+    text-align: center;
+}
+
+/* Стили для страницы цен */
+.prices-container h2 {
+    margin-top: 3rem;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 128, 171, 0.2);
+    text-align: left;
+}
+
+.prices-container h2:first-of-type {
+    margin-top: 0;
+}
+
+.conditions {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(255, 128, 171, 0.2);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Стили для карточек цен */
+.price-card {
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 128, 171, 0.1);
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.price-card h3 {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Сетка карточек */
+.prices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* Убираем нижний отступ у последней сетки */
+.prices-container .prices-grid:last-of-type {
+    margin-bottom: 2rem;
+}
