@@ -419,8 +419,13 @@ nav ul li:not(:last-child) a:hover::after {
 footer {
     background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
     color: var(--white);
-    padding: 4rem 0 2rem;
+    padding: 4rem 0 0 0;
     margin-top: 6rem;
+    width: 100%;
+}
+
+.footer-wrapper {
+    width: 100%;
 }
 
 .footer-content {
@@ -455,10 +460,19 @@ footer {
 
 .footer-bottom {
     text-align: center;
-    padding-top: 2rem;
+    padding: 2rem 0;
+    background: rgba(0, 0, 0, 0.1);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.footer-bottom .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .register-link {
