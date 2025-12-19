@@ -160,30 +160,29 @@
         </div>
 
         <h2>Условия</h2>
-        <div class="prices-grid">
-            {% for key, info in prices_data.other.items() %}
-            <div class="price-card">
-                <h3>{{ info.name }}</h3>
-                
-                {# Проверяем, является ли price списком #}
-                {% if info.price is iterable and info.price is not string %}
-                    <div class="multiple-prices">
-                        {% for price_item in info.price %}
-                            <div class="price-line">{{ price_item }}</div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="price">{{ info.price }}</div>
-                {% endif %}
-                
-                {# Условия, если есть #}
-                {% if info.conditions %}
-                    <p class="conditions">{{ info.conditions }}</p>
-                {% endif %}
+<div class="prices-grid">
+    {% for key, info in prices_data.other.items() %}
+    <div class="price-card">
+        <h3>{{ info.name }}</h3>
+        
+        {# Проверяем, является ли price списком #}
+        {% if info.price is iterable and info.price is not string %}
+            <div class="multiple-prices">
+                {% for price_item in info.price %}
+                    <div class="price-line">{{ price_item }}</div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        {% else %}
+            <div class="price">{{ info.price }}</div>
+        {% endif %}
+        
+        {# Условия, если есть #}
+        {% if info.conditions %}
+            <p class="conditions">{{ info.conditions }}</p>
+        {% endif %}
     </div>
+    {% endfor %}
+</div>
     <div style="height: 60px;"></div>
 
     <footer>
