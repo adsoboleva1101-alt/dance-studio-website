@@ -13,7 +13,7 @@ COACHES_DATA = [
     {
         'id': 1,
         "name": "Даша Шорникова",
-        "specialization": ["choreo", "Kids 7-9"],
+        "specialization": ["Сhoreo", "Kids 7-9"],
         "vk": "https://vk.com/dariashorrrnikova",
         "instagram": "@shornikova_d",
         "story": "Даша - талантливый хореограф с многолетним опытом работы с детьми. Её занятия всегда наполнены энергией и творчеством. Она умеет находить подход к каждому ребёнку, помогая раскрыть их танцевальный потенциал."
@@ -21,7 +21,7 @@ COACHES_DATA = [
     {
         'id': 2,
         "name": "Катя Четина",
-        "specialization": ["hip-hop", "Girly hip-hop"],
+        "specialization": ["Hip-hop", "Girly hip-hop"],
         "vk": "https://vk.com/chetka17?from=search",
         "instagram": "@chetka17",
         "story": "Катя - настоящая звезда хип-хоп сцены. Её стиль - это уникальное сочетание мощной энергии и женственности. На занятиях она создаёт атмосферу, где каждый может почувствовать себя уверенно и свободно."
